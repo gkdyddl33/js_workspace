@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    div{
+        width: 300px;
+        height: 300px;
+        background-color:yellow;
+        font-size:150px;
+        /*가운데 컨텐츠 정렬*/
+        text-align:center;
+    }
+</style>
+<script>
+
+    // 3마다(3으로 나누었을 때 나머지가 0 이라면)
+    // 문서내의 div의 컨텐츠에 숫자 대신 원하는 단어를 출력하자
+
+    var n = 0;
+    var msg;
+    function setCount(){
+    // 버튼을 누를 때 마다, 1씩 증가시키되
+    // -> 숫자를 누적시킬 변수
+    n++;
+    
+    // 3으로 나누어 떨어지는가? 아닌가? = 삼항연산자 사용
+    // 아래의 변수값은 숫자이거나, 안주 명칭이거나 둘 중에 하나 되어야 함
+    // 결정되어 잇지 않으므로 변수로 처리해야 한다.
+    msg = ((n%3)==0)? "먹태":n;
+
+    // div _ div 사이에 있는 것을 innerText 라 한다.
+    document.getElementById("box").innerText=msg;
+
+
+    }
+</script>
+</head>
+<body>
+    <button onclick="setCount()">카운터 증가</button>
+
+    <div id="box">0</div>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 800px;
+        height: 600px;
+        background: red;
+        margin: auto;
+        position: relative;
+    }
+    /*wrapper 자식이 code, content 를 부모를 기준으로 배치할 것*/
+    #code{
+        width: 100px;
+        height: 100%;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        background: #f3afaf;
+    }
+    #content{
+        width: 700px;
+        height: 100%;
+        position: absolute;
+        left: 100px;
+        top: 0px;
+        background: green;
+    }
+    #mask{
+        width: 700px;
+        height: 600px;
+        background: black;
+        opacity: 0.8;
+    }
+    /*img 와(,) mask*/
+    img, #mask{
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+</style>
+<script>
+    // on or off를 결정할 변수
+    var status;
+    //스위치의 상태를 결정짓는 변수 true/false
+    var flagSwitch=true;
+    // 1 of 0으로 투명도를 결정지을 변수
+    var op=1;
+
+    function turn(){
+        // 문서 내의 pic 요소의 src 속성을 변경하자!
+        // off -  on 으로 왓다 갓다 해야 하므로 변해야 한다 = 변수
+        status =(flagSwitch)? "on":"off";
+        flagSwitch = !flagSwitch;
+
+        document.getElementById("pic"). src="../images/light/switch_"+status+".png";
+        
+        // 문서내에 mask라는 id 요소의 투명도도 제어
+        // 0 이면 켜고, 1이면 끄기
+        op = (flagSwitch)? 0:0.8;
+        document.getElementById("mask").style.opacity=op;
+    }
+</script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="code">
+            <img id="pic" src="../images/light/switch_off.png" onclick="turn()"/>
+        </div>
+        <div id="content">
+            <!-- 마지막에 있는 태그가 위로 씌어지기 때문에 mask를 아래로 내림. 
+                이미지를 가려야 하기 때문에 -->
+            <img src="../images/light/room.jpg" width="700px" height="600px"/>
+            <div id="mask"></div>
+        </div>
+                
+   </div>
+</body>
+</html>

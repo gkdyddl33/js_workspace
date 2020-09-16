@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>(4)갤러리</title>
+<style>
+    #wrapper{
+        width: 500px;
+        height: 450px;
+        margin:auto;
+    }
+    #box{
+        width: 100%;
+        height: 400px;
+        background: #bd7ebd;
+        border:3px solid black;
+    }
+    #bt_right{
+        /*오른쪽으로 날라가게 한 것임 - 자식이 떠있으면, 원칙상 부모로 침범
+        할 수 있기 때문에 overflow:hidden 해주면 됨*/
+        float:right; 
+    }
+    #btn{
+        /*bt_right의 부모*/
+        overflow:hidden;
+    }
+    /*btn 안에 있는 button들을..
+    selector에서 한칸을 띄울 경우 : 하위의 자식 요소들..*/
+    #btn button{
+        font-size: 25px;
+        padding-top:4px;
+        padding-bottom: 4px;
+    }
+    /*사진을 id로 설정해서 늘려준다.*/
+    #pic{
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<script>
+    // 내가 원하는 코드 영역에 이름을 붙인 단위를 함수라 하고,
+    // 우리는 지금 next() 이름의 코드 영역을 정의한 것이다. 따라서 원할 때 아무때나 저 코드 이름만
+    // 부르면, 이 코드 영역이 실행을 하게 된다.
+    // 단, 내가 정의한 함수 영역을 사용자 정의 함수라 하고, 앞에 function 키워들 붙여야 한다.
+    var n = 0;
+    // 변수명을 붙여야 하는 이유는? 원할 때 사용하기 위해서는 호출을 해야 하기 때문에
+    function next(){
+        n=n+1;
+        // alert(); -> alert을 하지 말고 문서내의 pic(id)라는 요소에 src의 값을 변경해보자
+                        // 이럴 경우, 사용자는 이미지가 자동으로 교체되는 효과
+        // n=n+1;
+        //alert(n);
+        // 문서를 . 얻어올거야. 요소의. id를 () -> 프로그래밍 언어에서는 식별성을 높이기 위해서
+                                                        //   복합어로 구성된 단어에 대해 명명 규칙
+                                                        //   낙타 등 표기법 : camel 기법(단어와 단어가 만나면 뒷 첫자를 대문자로 표기한다.)
+        document.getElementById("pic").src="../images/travel/"+n+".jpg";
+        // .src를 n 으로 바꿀거야.  근데 이미지가 보여야 하기 때문에 위에 처럼 작성해야된다.
+        // 숫자와 문자를 대상으로 연산을 수행하면, 연산 자체가 불가하므로
+        // 즉 문자가 연산에 껴있으면, 전체가 문자가 된다. 연결해주는 것.
+    }
+    function prev(){
+        n=n-1;
+        document.getElementById("pic").src="../images/travel/"+n+".jpg";
+    }
+    // <body onLoad="alert()"> : 바디가 로드 되면~이라는 의미!!
+
+</script>    
+</head>
+<body>
+    <div id="wrapper">
+
+        <div id="box">
+            <img src="../images/travel/1.jpg" id="pic"/>
+        </div>
+
+        <div id="btn">
+            <button id="bt_left" onclick="prev()">◀</button>
+            <button id="bt_right" onclick="next()">▶</button> 
+        </div>
+        
+   </div>
+</body>
+</html>

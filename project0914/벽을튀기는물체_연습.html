@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 500px;
+        height: 500px;
+        background-color: whitesmoke;
+        margin: auto;
+        position: relative;
+    }
+</style>
+<script>
+    // 문서가 로드되면, 초기화할 작업을 아래의 init함수에서 처리해보자.
+    var box;    // 문서내의 div 박스를 담아놓을 전역변수
+    var x = 50;  // 박스의 위치 x 좌표를 결정하는 전역변수
+    var y = 80;     // 박스의 위치 y 좌표를 결정하는 전역변수
+                            // y 값이 100 인 이유는? 우리 마음..
+
+    // 왔다리 갔다리 문제 참고해서 풀어보기.
+    var stepX= 5;
+    var stepY=8;
+
+    // -> style에서 할 것을 초기화 함수에서 한번 써봤다.
+    function init(){
+        box =document.getElementById("box");    // 전역변수에 보관!
+        // 박스의 스타일을 css에서가 아니라 js 프로그래밍으로 처리한다.
+        // 효과적으로는 달라질게 없으나, css를 프로그램으로 제어할 수 있다.
+        box.style.width=50+"px";
+        box.style.height=50+"px";
+        box.style.background="red";
+        box.style.position="absolute";
+        box.style.left=x+"px";
+        box.style.top=y+"px";
+    }
+    // 클릭할때 마다 box의 left, top 을 변경시켜나가보자.
+    function move(){
+        x +=stepX;
+        y +=stepY;
+
+        // y축에 발이 닿았는지 판단해보자. 판단기준:500 수평선 - 50 = 450에서..
+        if(y>=450){
+            box.style.background="blue";
+            // 650에 도달하면 색이 바뀐다.
+            // 이 순간에는 y축의 증가분을 반대로 돌려 놓아야 한다. 즉 부호를 전환
+            // x축은 그냥 냅두자
+            y -=8;
+        }else(y)
+        // box에 숫자 출력(디버깅 목적으로)
+        box.innerText="x="+x+"y="+y;
+        box.style.left=x+"px";
+        box.style.top=y+"px";
+    }
+</script>
+</head>
+<body onload="init()">
+    <div id="wrapper">
+        <button onclick="move()">수동</button>
+        <button onclick="auto()">자동</button>
+        
+        <div id="box"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>변형,크기,투명도..변화시키기</title>
+<style>
+    /*디폴트 margin을 없애는 방법
+    *{
+        margin:0px;
+    }*/
+    #wrapper{
+        width: 800px;
+        height: 600px;
+        
+        margin:auto;
+    }
+    #control{
+        width: 200px;
+        height: 600px;
+        background: yellow;
+        float: left;
+    }
+    #result{
+        width: 600px;
+        height: 600px;
+      
+        float: left;
+    }
+ #pic{
+     width: 100px;
+     height: 100px;
+     transform: scaleX(2);
+     opacity: 1;
+     transform:rotate(40deg);
+     border:1px dotted red;
+ }
+</style>
+<script>
+    // 해당 영역 : HTML이 아닌 프로그래밍 영역
+    /*
+        이 영역이 수행되는 시점은?  브라우저 실행할 때
+    */
+    var w=0;
+    var h=0;
+    var scX=1;
+    var scY=1;
+    var op=1; // 처음엔 불투명
+    var r =0;
+    var b=0;
+    
+// .style => style의 기준으로 작성해야 됨. 있고 없고는 스타일 기준!
+    function setWidth(){
+        // 문서내의 pic 라는 요소의 css의 너비를 늘린다.
+        w=w+10;
+        document.getElementById("pic").style.width=w+"px";
+    }
+    function setHeight(){
+        h=h+10;
+        document.getElementById("pic").style.height=h+"px";
+    }
+    function setScaleX(){
+        // 너비의 배수를 의미 2는 2배, 3은 3배...
+        scX=scX+0.5;
+        document.getElementById("pic").style.transform="scaleX("+scX+")"; // scX가 쌍따옴포 안에 있으면 문자가 되버린다.
+                                                                                                             // 그래서 변수로 사용하기 위해 따로 빼야된다.
+                                                                                                             // 연결연산자를 이용해서
+    }
+    function setScaleY(){
+        scY=scY+0.5;
+        document.getElementById("pic").style.transform="scaleY("+scY+")"; // scaleY(scY)
+    }
+    function setOpacity(){
+        op = op - 0.1;
+        document.getElementById("pic").style.opacity=op;
+    }
+    function setRotate(){
+        r=r+5;
+        document.getElementById("pic").style.transform="rotate("+r+"deg)";
+    }
+    // function setPosition(){
+    //     document.getElementById("pic").style.position=;
+    // }
+    function setBorder(){
+        b=b+1;
+        document.getElementById("pic").style.border=b+"px dotted red";
+    }
+</script>
+</head>
+<body>
+    <!-- 엔터나 띄워쓰기 를 사용해도 margin의 공간을 잡는다. 이것은 참고! -->
+    <!-- 너비와 높이
+            scaleX, scaleY 등 제어하기
+             -->
+    <div id="wrapper">
+        <div id="control">
+            <!-- ul이란 un ordered list 순서없는 목록 -->
+            <ul>
+                <li>
+                    <button onclick="setWidth()">width</button>
+                    <button onclick="setHeight()">height</button>
+                </li>
+                <li>
+                    <button onclick="setScaleX()">scaleX</button>
+                    <button onclick="setScaleX()">scaleY</button>
+                </li>
+                <li>
+                    <button onclick="setOpacity()">opacity</button>
+                </li>
+                <li>
+                    <button onclick="setRotate()">rotate</button>
+                </li>
+                <!-- <li>
+                    <button onclick="setPosition()">position</button>
+                </li> -->
+                <li>
+                    <button onclick="setBorder()">border</button>
+                </li>
+            </ul>
+        </div>
+        <div id="result">
+            <img src="../images/hero/image1.png" id="pic"/>
+        </div>
+    </div>
+</body>
+</html>

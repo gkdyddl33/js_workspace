@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #box{
+        width: 100px;
+        height: 100px;
+        background: red;
+        position: absolute;
+        left: 0px;
+        top: 150px;
+        color:yellow;
+        font-size: 40px;
+        font-weight: bold;
+        text-align: center;
+    }
+</style>
+<script>
+    var x =0;
+    var flag=true;
+    var step =5;
+    function move(){
+        x += step;
+        document.getElementById("box").style.left=x+"px";
+        document.getElementById("box").innerText=x;
+
+        // 400이상 0이하에 도달하면 왔다 갔다 반복하게 끔 
+        // 양수 -> 음수 = flag
+        // flag = (x<=0 || x>=400)? !flag : flag;
+        // step = (flag)? 5:-5;
+        step = (x<=0 || x>=400)? -step : step;
+    }
+    function auto(){
+        setInterval("move()",10);
+    }
+</script>
+</head>
+<body>
+    <button onclick="move()">수동 움직이기</button>
+    <button onclick="auto()">자동 움직이기</button>
+    <div id="box"></div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    // (2) 응용해보기 -> 5번쨰 마다가 아닌 내가 입력한 수에 맞춰서 변경해주기.
+    var n = prompt("몇 번째마다 다른 공을 생성할래요?");    // 5를 입력해도, 프롬프트 특징상
+                                                                                  // 문자가 된다. -> 숫자로 변경
+    n = parseInt(n);
+
+    // ball count 증가 시키기
+    var count = 0;
+                    
+    function createBall(){
+
+        count++;            // --> 숫자가 왜 누적해야 하나? 1~쭉 누적해서 증가하다가 
+                                  // --> 나눈 나머지를 구해야 하므로..
+                                  console.log("counts is ",count);
+        var ball = document.createElement("img");
+
+        /*
+        if(count%n !=0){ // 5의 배수가 아니면
+           ball.src="../images/ball/ball1.jpg";
+        }
+        else{ // 5의 배수면
+            ball.src="../images/ball/ball2.jpg";
+        }
+        --------> 조건문을 흑백논리인 '삼항연산자'로도 가능하다.
+        */
+
+        ball.src=(count%n==0)? "../images/ball/ball2.jpg":"../images/ball/ball1.jpg";
+        // body에 부착 => body에 ball생성
+        document.body.appendChild(ball);
+        ball.style.width=50+"px";
+    }
+</script>
+</head>
+<body>
+    <button onclick="createBall()">공 이미지 생성</button>
+
+    <img src="../images/ball/ball1.jpg"/>
+</body>
+</html>

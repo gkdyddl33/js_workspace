@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    var n = prompt("몇 번째마다 다른 공을 생성할래요?");
+    n=parseInt(n);
+
+    var count=0;
+    function createBall(){
+        count++;
+
+        var ball = document.createElement("img");
+        ball.style.width=50+"px";
+        document.body.appendChild(ball);
+        // if(count%5 !=0){
+        //     ball.src="../images/ball/ball1.png";
+        // }else{
+        //     ball.src="../images/ball/ball2.png";
+        // }
+
+        ball.src=(count%n==0)? "../images/ball/ball2.jpg":"../images/ball/ball1.jpg"
+    }
+</script>
+</head>
+<body>
+    <button onclick="createBall()">공 이미지생성</button>
+    <img src="../images/ball/ball1.jpg">
+</body>
+</html>

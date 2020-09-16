@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 800px;
+        height: 600px;
+        background: cadetblue;
+        margin: auto;
+        position: relative;
+    }
+    #code{
+        width: 100px;
+        height: 100%;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        background: #f3afaf;
+    }
+    #content{
+        width: 700px;
+        height: 600px;
+        position: absolute;
+        left: 100px;
+        top: 0px;
+        background: rgb(76, 155, 76);
+    }
+    #mask{
+        background: gray;
+        width: 700px;
+        height: 600px;
+        opacity: 0.8;
+    }
+    img, #mask{
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+</style>
+<script>
+    // on of off 를 결졍할 변수
+    var status;
+    // 스위치로 인해 투명도가 제어
+    var op=1;
+    var flag = true;
+    function turn(){
+        status=(flag)? "on":"off";
+        flag= !flag;
+        document.getElementById("pic").src="../images/light/switch_"+status+".png";
+
+        op=(flag)? 0:0.8;
+        document.getElementById("mask").style.opacity=op;
+    }
+</script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="code">
+            <img id="pic" src="../images/light/switch_off.png" onclick="turn()"/>
+        </div>
+        <div id="content">
+            <img src="../images/light/room.jpg" width="700px" height="600px"/>
+            <div id="mask"></div>
+        </div>
+    </div>
+</body>
+</html>

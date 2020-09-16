@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #box{
+        width: 100px;
+        height: 100px;
+        background: red;
+        position: absolute;
+        left:0px;
+        top:200px;
+
+    }
+   
+</style>
+<script>
+    // 박스의 x 좌표값을 결졍짓는 변수
+    var x=0;
+    
+    function move(){
+  
+        if(info){
+            // box라는 요소 스타일 position의 left 값을 변경하자
+            x += 5;
+            document.getElementById("box").style.left=x+"px";
+            document.getElementById("info").value=x;
+        }
+        else{
+            // 400px 에 도달하면 다시 0px로 되돌아 가는 것.
+            x -= 5;
+            document.getElementById("box").style.left=x+"px";
+            document.getElementById("info").value=x;
+        }
+        
+    }
+</script>
+</head>
+<body>
+<!-- 
+    벽으로 부터 500px  떨어진 상태에서 다시 되돌아 가는 것
+    왓다리 갓다리(0px)를 반복하는 과제    
+ -->
+    <button onclick="move()">움직이기</button>
+    <!-- 디버깅 목적 : 움직일 때마다 5인지 10인지 늘어나는 것을 보는 것
+                            정보를 출력하면서 개발하는 것을 보기 위해 -->
+    <input type ="text" id="info"/>
+    <div id="box"></div>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 800px;
+        height: 600px;
+        background: red;
+        margin: auto;
+        position: relative;
+    }
+    #code{
+        width: 100px;
+        height: 100%;
+        position: absolute;
+        left: 0px;
+        top:0px;
+        background: #f3afaf;
+    }
+    #content{
+        width: 700px;
+        height: 100%;
+        position: absolute;
+        left: 100px;
+        top:0px;
+        background: green;
+    }
+    #mask{
+        width: 700px;
+        height: 600px;
+        background: black;
+        opacity: 0.8;
+    }
+    img, #mask{
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+</style>
+<script>
+        // on or off를 해주는 변수
+        var status;
+        // 꺼지고 켜지고 변해야 한다. = 변수
+        var flagSwitch=true;
+
+        // 1 or 0으로 투명도를 결정지을 변수
+        var op = 1;
+    function turn(){
+        status= (flagSwitch)? "on":"off";
+        flagSwitch= !flagSwitch;
+
+        //  스위치에 맞춰서 투명도 제어할 변수
+        op=(flagSwitch)? 0:0.8;
+
+        document.getElementById("pic").src="../images/light/switch_"+status+".png";
+        document.getElementById("mask").style.opacity=op;
+    }
+</script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="code">
+            <img id="pic" src="../images/light/switch_off.png" onclick="turn()"/>
+        </div>
+        <div id="content">
+            <img  src="../images/light/room.jpg" width="700px" height="600px"/>
+            <div id="mask"></div>
+        </div>
+    </div>
+</body>
+</html>

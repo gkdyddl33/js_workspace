@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 800px;
+        height: 600px;
+        margin:auto;
+        /*자식이 float로 떠있으면 부모는 컨텐츠를 감싸야 한다. 즉, 넘어갈려는 것을 제한해야 함.*/
+        position: relative;
+    }
+    #code{
+        width: 100px;
+        height: 100%;
+        background: #cccccc;
+        position: relative;
+    }
+    /*자식요소에 position을 명시하면 반드시 부모에도 position이 명시되어야 한다.*/
+    #content{
+        width: 700px;
+        height: 100%;
+        position: relative;
+        left:100px;
+        top:0px;
+    }
+    #mask{
+        width: 700px;
+        height: 100%;
+        background: black;
+        opacity: 0.8;
+        /*부모를 기준으로 한 위치 설정*/
+        position: absolute;
+        left:0px;
+        top:0px;
+    }
+    img{
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+    
+</style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="code"></div>
+        <div id="content">
+            <!-- mask와 img는 content라는 같은 부모를 두고
+                위치를 지정해주자. position : absoulte -->
+            <div id="mask"></div>
+            <img src="../images/light/room.jpg" width="700px" height="600px"/>
+        </div>
+                
+   </div>
+</body>
+</html>

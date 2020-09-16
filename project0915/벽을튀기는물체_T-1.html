@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    var ball;
+    var wrapper;
+    var x =0;
+    var y = 0;
+    var stepX = 5;
+    var stepY = 4;
+    
+    function init(){
+        createButton();
+        // (1)
+        wrapper = document.createElement("div");
+        wrapper.style.width=600+"px";
+        wrapper.style.height=600+"px";
+        wrapper.style.background="yellow";
+        wrapper.style.margin="auto";
+        wrapper.style.position="relative";
+        document.body.appendChild(wrapper);
+
+        // (2)
+        ball = document.createElement("img");
+        ball.src="../images/ball/ball2.jpg";
+        ball.style.width=50+"px";
+        ball.style.height=50+"px";
+        ball.style.position="absolute";
+        ball.style.left=100+"px";
+        ball.style.top=50+"px";
+        wrapper.appendChild(ball);
+    }
+    function createButton(){
+        var bt1 = document.createElement("button");
+        var bt2 = document.createElement("button");
+
+        bt1.addEventListener("click",function(){
+            // 공의 움직임 효과 발생이 일어나면 코드가 동작한다.
+            move();
+        });
+
+        bt1.innerText="수동";
+        bt2.innerText="자동";
+        document.body.appendChild(bt1);
+        document.body.appendChild(bt2);
+    }
+    // (4)
+    function move(){
+        x=x+stepX;
+        y=y+stepY;
+
+        // 공의 좌표를 변경
+        ball.style.left=x+"px";
+        ball.style.top=y+"px";
+
+        // 공이 우측 
+        if(x==(parseInt(wrapper.style.width)-parseInt(ball.style.width))){
+            stepX = -stepX;
+        }
+        // 공이 땅바닥
+        if(y==(parseInt(wrapper.style.height)-parseInt(ball.style.height))){
+            stepY = -stepY;
+        }
+        if(x<=0){
+            stepX = -stepX;
+        }
+        if(y<=0){
+            stepY = -stepY;
+        }
+    }
+</script>
+</head>
+<body onload="init()">
+
+</body>
+</html>

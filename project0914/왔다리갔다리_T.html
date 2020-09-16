@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #box{
+        width: 100px;
+        height: 100px;
+        background: red;
+        position: absolute;
+        left:0px;
+        top:150px;
+        color:yellow;
+        font-size: 40px;
+        font-weight: bold;
+        text-align: center;
+    }
+   
+</style>
+<script>
+    // 박스의 x 좌표값을 결졍짓는 변수
+    var x=0;
+    // 우측,좌측을 결정짓는 발걸음 변수
+    var step=5;
+    var flag = ture;
+    // 함수는 호출해야 동작이 된다.
+    
+    // body 태그안의 모든 요소가 생성된 이후에, 즉 로드된 이후에 자바스크립트에서
+    // 접근해야 하므로, 초기화 함수는 onLoad 이벤트 핸들러에서 호출하도록 한다.
+    // 변수를 전역으로 빼고 싶을 때 = 함수로 해서 사용할 수 있다.
+    // var box;
+    // function init(){
+    //     box = document.getElementById("box");
+    // }
+    function move(){
+  
+            // box라는 요소 스타일 position의 left 값을 변경하자
+            x += step;
+            document.getElementById("box").style.left=x+"px";
+            // document.getElementById("info").value=x;
+        
+            // 박스안에 X값 출력
+            document.getElementById("box").innerText=x;
+               
+            // 400에 도달하면 양수 그 다음에는 음수가 되게 끔
+            // 즉, 400이상이거나 0이하면 기존의 5는 부호를 바꿔야한다.
+            // (1) flag = 0 or 400에 도달햇니?
+            flag = (x<=0 || x>=400)? !flag:flag;
+            step=(flag)? 5:-5;
+
+            // 위에는 코드를 풀어서 쓴거고 아래 코드는 짧게 요약해서 사용
+            // step = (x<=0 || x>=400)? -step:step;
+    }
+    // 자동으로 움직이게 처리
+    function auto(){
+        setInterval("move()",10);
+    }
+</script>
+</head>
+<body>
+<!-- 
+    벽으로 부터 500px  떨어진 상태에서 다시 되돌아 가는 것
+    왓다리 갓다리(0px)를 반복하는 과제    
+ -->
+    <button onclick="move()">수동 움직이기</button>
+    <!-- 디버깅 목적 : 움직일 때마다 5인지 10인지 늘어나는 것을 보는 것
+                            정보를 출력하면서 개발하는 것을 보기 위해 -->
+    <!-- <input type ="text" id="info"/> -->
+    <button onclick="auto()">자동  움직이기</button>
+    <div id="box"></div>
+
+</body>
+</html>

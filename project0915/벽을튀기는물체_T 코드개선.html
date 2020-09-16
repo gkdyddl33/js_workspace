@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    /*
+        이 예제에서는 body에 직접 태그를 작성하지 말자.
+        순수 자바스크립트로만 디자인까지 작성해보자.
+        (실력 향상을 위해!!)
+    */
+    var ball;
+    var wrapper;
+    var x = 0;              // ball의 x좌표를 결정짓는 전역변수
+    var y = 0;
+    var stepX = 5;
+    var stepY = 4;
+    var flag=true;               // move함수의 코드영역을 수행할지 여부를 결정짓는 전역변수(bt3)
+                                       // 전역 변수는 브라우저가 살아있는 동안 계속 사용가능
+    function init(){
+        // 호출을 위로 올리면 버튼이 아래에서 위로 올라온다.
+        createButton();
+        // (1)
+        // alert('문서를 다 읽었어요.');
+       wrapper = document.createElement("div");
+        wrapper.style.width=300+"px";
+        wrapper.style.height=300+"px";
+        wrapper.style.background="yellow";
+        wrapper.style.margin="auto";
+        // 부모도 위치를 지정해주지 않으면 공이 wrapper 밖으로 팅겨나간다.
+        wrapper.style.position="relative";
+        // 화면에 붙인다 = body로 부착
+        document.body.appendChild(wrapper);
+
+        // (2) 공 추가하기
+        // ball -> 지역이 아닌 전역으로 해야 다른 함수영역에서 접근이 가능
+        ball = document.createElement("img");
+        ball.src="../images/ball/ball2.jpg";
+        ball.style.width=50+"px";
+        ball.style.height=50+"px";
+        ball.style.position="absolute";
+        ball.style.left=100+"px";
+        ball.style.top=50+"px";
+        wrapper.appendChild(ball);
+
+    }
+        // (3) 버튼 생성 - 자동,수동
+    function createButton(){
+        // 동적으로 버튼을 생성하고, click 이벤트 마저도 프로그래밍적으로 처리해보자.
+        var bt1 = document.createElement("button");
+        var bt2 = document.createElement("button");
+        // 잠시 멈추는 bt3 추가
+        var bt3 = document.createElement("button");
+        // 버튼에 click 이벤트 추가하기 ex. onClike
+        bt1.addEventListener("click",function(){//  마우스를 클릭하면 버튼이 듣겟다.
+                                                                // 버튼에 이벤트 감지가 등록!
+                                                           // click을 청취할거야. 익명함수를
+        
+            // 이름없는 함수를 익명함수라 하고, 이 영역에 코드를 작성하면
+            // 해당 이벤트가 발생했을 때 이 코드가 동작하게 된다.
+            move();
+        });
+        bt2.addEventListener("click",function(){
+            setInterval("move()",30);
+            // 현재 버튼을 더이상 못 누르도록 비활성화 시킨다.
+            bt2.disabled = true;        // 버튼의 비활성화 여부를 true
+        });
+        bt3.addEventListener("click",function(){
+            // 한번 누르면 동작, 또 한번 누르면 멈춤 결국 멈추거나 움직이거나 (단, 두가지 경우)
+            // 흑백논리의 처리는 프로그래밍 언어에서 지원하는 3가지 데이터 유형 중 
+            // 논리값과 연관성이 높다..
+            flag = !flag;
+        });
+        bt1.innerText="수동";
+        bt2.innerText="자동";
+        bt3.innerText="pause";
+        document.body.appendChild(bt1);
+        document.body.appendChild(bt2);
+        document.body.appendChild(bt3);
+    }
+
+        // (4) 공의 좌표를 증가 감소 시켜 움직임 효과를 내본다.
+    function move(){
+            if(flag){// 증감처리
+            x=x+stepX;          // X가 증가할지, 감소할지 여부를 결정짓지 않기 위한 변수
+            y=y+stepY;
+
+            // 공의 좌표를 변경
+            ball.style.left=x+"px";
+            ball.style.top=y+"px";
+
+            // ball.style.left = x
+            // 공이 우측 벽에 도달하면 .. 닿은 순간 x 좌표 = 우측벽의 x좌표 - 공의너비
+            // 공이 좌측 벽에 도달하면..
+            if(x>=(parseInt(wrapper.style.width)-parseInt(ball.style.width))|| x<=0){
+                // x축으로 감소하면서 이동..
+                ball.style.border="1px solid red";
+                stepX = -stepX;         // 부호반대로 전환
+            }
+
+            // 공이 땅바닥에 도달하면 .. 닿은순간 y좌표 = 바닥의 y좌표 - 공의높이 
+            // 공이 천장에 도달하면.. 
+            if(y>=(parseInt(wrapper.style.height) - parseInt(ball.style.height)) || y<=0){
+                // y축으로 증가분을 반대로
+                stepY = -stepY;
+            }
+
+            /* 위에 조건문을 삼항연산자로 할 경우 -> 코드 개선으로 해서 삼항연산자를 해보기!
+            stepX = (x>=(parseInt(wrapper.style.width)-parseInt(ball.style.width))|| x<=0)? -stepX : stepX;
+            stepY = (y>=(parseInt(wrapper.style.height) - parseInt(ball.style.height)) || y<=0)? -stepY:stepY;
+            */
+        }
+    }
+</script>
+</head>
+<body onload="init()">
+  
+</body>
+</html>

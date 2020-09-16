@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    body{
+        margin: 0px;
+    }
+    #wrapper{
+        width: 100%;
+        height: 700px;
+        background: rgb(127, 206, 238);
+        position: relative;
+    }
+    #pic{
+        width: 50px;
+        height: 50px;
+        border:1px solid red;
+        position: absolute;
+        left: 0px;
+        top: 100px;
+    }
+</style>
+<script>
+    function getPoint(){
+        // 그 전 예제의 키보드 사건과 다르게 이번에는 마우스 사건이다.
+        console.log("x축: ", event.clientX);
+        console.log("y축: ", event.clientY);
+        document.getElementById("tx").value=event.clientX;
+        document.getElementById("ty").value=event.clientY;
+
+        // 마우스 화살표가 가운데 가르키게 하는 것.
+        document.getElementById("pic").style.left=(event.clientX-25)+"px";
+        document.getElementById("pic").style.top=(event.clientY-25)+"px";
+    }
+</script>
+</head>
+<body onmousemove="getPoint()">
+    <div id="wrapper">
+        마우스 X좌표 <input type="text" id="tx"/>
+        마우스 Y좌표 <input type="text" id="ty"/>
+
+        <img src="../images/hero/image1.png" id="pic" onclick="alert('아야야');"/>
+    </div>
+</body>
+</html>

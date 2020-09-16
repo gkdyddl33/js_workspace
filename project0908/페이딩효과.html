@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>마지막 과제</title>
+<script>
+/*
+    ex) 수신음이 커졌다가 작아졌다가 하는 것이 = 페이딩효과
+    자바스크립트를 이용하면, 실행타임(runtime)에도 CSS를 변결할 수 있다.
+    즉, CSS를 동적으로 변경할 수 있다.
+*/
+// 변수 선언시 그냥 막하지 말고, 의미를 살리자. 그래야 유지보수가 편해짐.
+var op=1;
+
+function transparent(){
+    /*
+    투명도 조절하는 것
+    문서내의 pic 이라는 요소의 css 중 투명도 값을 투명하게 하자.
+    
+    CSS에 접근하기 위해서는 . 을 붙이고 객체를 써야 사용가능. -> css를 js로 접근 한 것!!
+    */
+    op=op-0.1;
+    document.getElementById("pic").style.opacity=op;
+}
+</script>
+</head>
+<body>
+    <img src="../images/travel/10.jpg" id="pic"/>
+    <button onclick="">점점 불투명하게..</button>
+    <button onclick="transparent()">점점 투명하게..</button>
+</body>
+</html>

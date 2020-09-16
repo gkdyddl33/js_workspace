@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    body{
+        background: black;
+    }
+</style>
+<script>
+    // 버튼을 누를 때 마다, 현재 배경색상의 반대 색상으로 처리하자,
+    // 불 켜고, 끄는 효과를 낼 수 있다.
+    var bg;
+    var n = 0;
+
+    function turn(){
+        n++;
+
+        // 다시 이전으로 돌아 가기 위하는 방법 알아보기
+        // ex) black or white
+        bg = ((n%2)==1)? "white":"black";
+        document.body.style.background=bg;
+        /* 강사님 풀이
+        
+            var flag = true;
+            bg = (flag) ? "white" : "black";
+            flag = !flag; -> 논리값을 대상으로 !not을 붙이면 해당 논리값의 반대
+            console.log("현재 flag 값은",flag); 로 찾아 가면서 해봐도 됨
+        */
+    }
+</script>
+</head>
+<body>
+    <button onclick="turn()">원터치 스위치</button>
+</body>
+</html>

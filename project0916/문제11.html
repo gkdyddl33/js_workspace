@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>문제11</title>
+<script>
+    /*
+        ★ 을 96개 출력하되, 10개씩 개행시켜서 출력하세요.
+
+        풀이핵심)
+        총 96번 반복    : 반복문의 횟수를 알 수있다.
+        10개씩 개행     : 10번째마다를 표현해야 한다. % 연산자를 이용
+                                개행 <br/> 이용
+    */
+    // write() 함수에 출력할 문자열을 명시
+     // document.write(5);
+     
+     // write() 함수 문자열을 이용하여 태그를 출력 = document.createElement("img")
+     // document.write("<img>");
+
+     for(var i = 1; i<=96; i++){
+         document.write("★");
+         if(i%10==0){
+            // 10마다 개행시켜줘
+            document.write("<br/>")
+         }
+
+     }
+   
+</script>
+</head>
+<body>
+
+</body>
+</html>

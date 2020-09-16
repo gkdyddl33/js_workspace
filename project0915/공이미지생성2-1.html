@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    // (3) textbox에 값을 넣을 수 있도록 하는 실습!
+    
+    // ball count 증가 시키기
+    var count = 0;
+                    
+    function createBall(){
+
+        count++;           
+                                  console.log("counts is ",count);
+        var ball = document.createElement("img");
+        var n = document.getElementById("txt").value;
+        n=parseInt(n);
+
+        var path = document.getElementById("path").value;
+        /*
+        if(count%n !=0){ // 5의 배수가 아니면
+           ball.src="../images/ball/ball1.jpg";
+        }
+        else{ // 5의 배수면
+            ball.src="../images/ball/ball2.jpg";
+        }
+        --------> 조건문을 흑백논리인 '삼항연산자'로도 가능하다.
+        */
+
+        ball.src=(count%n==0)? path:"../images/ball/ball1.jpg";
+        // body에 부착 => body에 ball생성
+        document.body.appendChild(ball);
+        ball.style.width=50+"px";
+    }
+    function auto(){
+        setInterval("createBall()",500);
+    }
+</script>
+</head>
+<body>
+    <input id="txt" type="text" placeholder="몇 번째 마다 공을 생성할지 숫자를 입력해주세요.">
+    <input id="path" type="text" placeholder="사용 될 이미지 경로">
+    <br>
+    <button onclick="createBall()">공 이미지 생성</button>
+    <button onclick="auto()">자동 생성</button>
+    <img src="../images/ball/ball1.jpg"/>
+</body>
+</html>

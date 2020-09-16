@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>(3)카운터</title>
+<script>
+    // 변수는 변할 수 있는 수 이다. 즉, 값이 변할 수 있다.
+    /*var x=7;
+    var y=3;
+    x=x+3;
+    document.write(x);*/
+
+    // 메모리에 0이라는 데이터를 올리고, 그 영역의 이름을 n이라 부여.
+    var n =0;
+    // 아래의 코드 영역은 필요할 때 호출 할 수 있는 코드 단위.
+    // 주의!
+    // HTML 은 문서에 불과하기 때문에 대소문자를 가리지 않으나
+    // 모든 프로그래밍 언어에서는 대소문자를 까다롭게 구분한다.
+    function setCount(){
+        n = n+1;
+        // alert : 창을 띄워 주는 함수 ex) 입력창, 경고창..
+        // alert(n);
+        alert(n+".jpg"); // 연결해서 보여준다. 1.jpg..
+        alert("D:/workspace/js_workspace/images/"+n+".jpg");
+    }
+</script>
+
+</head>
+<body>
+    <!-- 변수값을 +1씩 증가 -->
+    <button onclick="setCount()">카운터 증가</button>
+</body>
+</html>
