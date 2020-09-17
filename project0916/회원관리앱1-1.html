@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 700px;
+        height: 600px;
+        background: yellow;
+        margin: auto;
+        border:2px solid red;
+        position: relative;
+    }
+    .regist-area{
+        width: 200px;
+        height: 100%;
+        background: #dfdfdf;
+        position: absolute;
+        left: 0px;
+    }
+    #result-area{
+        width: 500px;
+        height: 100%;
+        background: rgb(143, 143, 238);
+        position: absolute;
+        left: 200px;
+        overflow: scroll;
+    }
+    input[type='text']{
+        padding: 6px;
+        margin: 5px 5px;
+    }
+    button{
+        margin: 0px 5px 0px 5px;
+        width: 80px;
+        padding: 6px;
+    }
+</style>
+<script>
+    var count = 0;
+    function regist(){
+        count++;
+        // (2) 등록된 사람에 대한 정보 table 출력 = 등록 button
+        var area = document.getElementById("result-area");
+        
+        var id = document.querySelector("input[name='id']");
+        var pass = document.querySelector("input[name='pass']");
+        var name = document.querySelector("input[name='name']");
+
+        var str = "<table width=\"100%\" border=\"1px\">";
+        for(var i=1;i<=count;i++){
+            str = str + "<tr>";
+            str = str + "<td>"+id.value+"</td>";
+            str = str + "<td>"+pass.value+"</td>";
+            str = str + "<td>"+name.value+"</td>";
+            str = str + "</tr>";
+        }
+        str = str + "</table>";
+        area.innerHTML=str;
+    }
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="regist-area">
+            <form onsubmit="event.preventDefault()">
+                <input type="text" name="id" placeholder="ID입력.."/>
+                <input type="text" name="pass" placeholder="Password입력.."/>
+                <input type="text" name="name" placeholder="Name입력.."/>
+
+                <button onclick="regist()">등록</button>
+                <button>지우기</button>
+            </form>
+        </div>
+        <div id="result-area">등록폼 결과표 나올 영역</div>
+    </div>
+</body>
+</html>

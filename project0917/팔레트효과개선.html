@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>팔레트효과</title>
+<style>
+    .wrapper{
+        width: 700px;
+        height: 500px;
+        background: black;
+        margin: auto;
+        /* 필수) 자식이 float 되면 벗어나지 못하게 hidden으로 잡아둬야 함!!!!! */
+        overflow: hidden;
+    }
+    /* wrapper 안에 있는 div라고 적용하기 위해
+        = .wrapper 라는 클래스가 적용된 요소의 하위요소 중 div는.. */
+    .wrapper div{
+        width: 100px;
+        height: 100px;
+        float: left;
+        /* 필수) float로 띄우면 밑에 있는 box 들이 안으로 파고 들어갈 수 있다.
+            이것을 막아주는 것은 clear 이다.  */
+    }
+    #content{
+        width: 100%;
+        height: 400px;
+        background: pink;
+    }
+</style>
+<script>
+    // 문서 내의 content 라는 div 의 배경색을 선택하면 선택한 색상을 들어가게 한다.
+    function setColor(bg){
+        // 개선한 점) 함수를 한가지만 사용 할꺼면 매개변수를 이용하자. = setColor('');
+            var content = document.getElementById("content");
+            content.styl.backgroundColor=bg;
+   }
+
+</script>
+</head>
+<body onload="setColor('yellow')">
+    <div class="wrapper">
+        <!-- 썸 네일 7개 생성 = 팔레트 7가지 색 -->
+        <!-- span 은 마크업에 목적, 아무런 효과가 없는 태그이다. 감싸주기만 함
+               block 이 아닌 inline 효과이다 -->
+               <!-- onmouseover : 마우스를 올려놓았을 떄 -->
+        <div onMouseOver="setColor('red')" style="background: red">red</div>
+        <div onMouseOver="setColor('orange')" style="background: orange">orange</div>
+        <div onMouseOver="setColor('yellow')" style="background: yellow">yellow</div>
+        <div onMouseOver="setColor('green')" style="background: green">green</div>
+        <div onMouseOver="setColor('blue')" style="background: blue">blue</div>
+        <div onMouseOver="setColor('navy')" style="background: navy">navy</div>
+        <div onMouseOver="setColor('purple')" style="background: purple">purple</div>
+        <div id="content">큰 색상 나오게</div>
+    </div>
+</body>
+</html>
