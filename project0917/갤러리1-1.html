@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 700px;
+        height: 600px;
+        margin: auto;
+        border: 5px solid black;
+    }
+    .thumb{
+        width: 150px;
+        height: 100%;
+        float: left;
+        overflow: scroll;
+    }
+    .thumb img{
+        width: 120px;
+    }
+    .detail{
+        width: 550px;
+        height: 100%;
+        float: left;
+    }
+    .detail img{
+        width: 450px;
+        padding: 50px;
+    }
+</style>01027750508
+<script>
+    function setImage(){
+        var detail = document.querySelector(".detail img");
+        detail.src="../images/travel/1.jpg";
+    }
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="thumb">
+            <img src="../images/travel/1.jpg" onclick="setImage()"/>
+            <img src="../images/travel/2.jpg" onclick="setImage()"/>
+            <img src="../images/travel/3.jpg" onclick="setImage()"/>
+            <img src="../images/travel/4.jpg" onclick="setImage()"/>
+            <img src="../images/travel/5.jpg" onclick="setImage()"/>
+            <img src="../images/travel/6.jpg" onclick="setImage()"/>
+            <img src="../images/travel/7.jpg" onclick="setImage()"/>
+            <img src="../images/travel/8.jpg" onclick="setImage()"/>
+            <img src="../images/travel/9.jpg" onclick="setImage()"/>
+            <img src="../images/travel/10.jpg" onclick="setImage()"/>
+        </div>
+        <div class="detail">
+            <img src="../images/travel/1.jpg"/>
+        </div>
+    </div>
+</body>
+</html>

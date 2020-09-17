@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    // <!-- 버튼을 누르면, 나 불렀어? 라는 제목으로 바뀌도록 해보세요. -->
+    function setText(){
+        // id,name,selector 방법으로 접근이 가능..
+        var bt = document.querySelector("button");
+        // 나 자신을 부를 때는 = '나' 라는 대명사를 불러야 한다.
+        bt.innerText="저 불렀어요?";
+    }
+</script>
+</head>
+<body>
+    <!-- (1) 제 3자가 보는 시선으로 코드를 짜보자 -->
+    <img src="../images/travel/3.jpg" id="pic" onclick="alert(this.src)"/>
+    <!-- 클릭시 버튼의 제목을 바꾸는 다양한 방법을 배워보자. -->
+    <button onclick="this.innerText='왕버튼'">눌러보세요</button>
+
+</body>
+</html>
