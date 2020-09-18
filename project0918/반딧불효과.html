@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 1200px;
+        height: 800px;
+        background-image: url(../images/bandi/bandi.jpg);
+        margin: auto;
+        position: relative;
+    }
+    #wrapper img{
+        width: 1200px;
+        height: 800px;
+    }
+</style>
+<script src="../js/lib.js"></script>
+<script>
+    var wrapper;
+    var bg;
+    // 이미지의 scale을 결정하는 전역변수 -> 본연의 size로 초기값
+    var sx = 1;
+    var sy = 1;
+    var light;
+    // 변경사항 없음 = 고정
+    let a = 0.1;
+    // 반딧불이 도달할 x,y목표지점
+    var targetX;
+    var targetY;
+    // 현재 호출되고 있는 함수의 횟수를 알기 위한 변수
+    var count=0;
+
+    window.addEventListener("load",function(){
+        wrapper = document.getElementById("wrapper");
+        bg = document.getElementById("bg");
+        
+        setInterval("moveBg()",10);
+        setInterval("move()",20);
+        setInterval("random()",10);
+
+        // 반딧불 생성
+        createLight();
+    });
+    // 배경이미지를 조금씩 조금씩 크게하면, 마치 다가가는 것처럼 보일 수 있다.
+    function moveBg(){
+        // 스케일을 키워보자.
+        // x, y '배'를 소수점으로 누적 키우자.
+        sx += 0.0002;
+        sy += 0.0002;
+        bg.style.transform="scale("+sx+","+sy+")";
+    }
+    // 반딧불 생성한다.
+    function createLight(){
+        light = document.createElement("div");
+        light.style.width=30+"px";
+        light.style.height=30+"px";
+        light.style.background="yellow";
+        
+        // 위치를 absolute로 해야 div 내에서 좌표가 지정되고, img 태그와
+        // 자리 싸움을 벌이지 않는다.
+        light.style.position="absolute";
+        light.style.left=100+"px";
+        light.style.top=150+"px";
+
+        // 사각모서리 둥글게
+        light.style.borderRadius=50+"px";
+        // 투명효과
+        light.style.opacity=0.4;
+        // div 에 추가하기
+        wrapper.appendChild(light);
+    }
+    // 반딧불의 감속도 운동 -> 계속 호출되야 됨
+    function move(){
+        // 반디위치 = 반디위치 + 비율*(목표지점-반디위치)
+        light.style.left=parseInt(light.style.left)+a*(targetX-parseInt(light.style.left))+"px";
+        light.style.top=parseInt(light.style.top)+a*(targetY-parseInt(light.style.top))+"px";
+        // 움직이는 콘솔로 확인해 보자.
+        // console.log("x목표지점 ",targetX);
+        // console.log("y목표지점 ",targetY);
+
+        // count 로 타켓을 정할 위치를 확인해 보는것 -> target의 값을 바꾼다.
+        console.log("count= ",count++);
+        if(count%300==0){
+            // 400마다 고정되어 있으면 최초에 한번만 움직이므로
+            // 400마다 랜덤한 값으로 대체하자.
+            // 새롭게 로직을 작성하지 말고, ㅇㅖ전에 개발해놓았던 함수 재사용!
+            // 재사용이유? 개발시간 단축 -> 비용줄임 -> 기업이 번다
+            targetX = getRandom(800);
+            targetY = getRandom(550);
+            
+        }
+    }
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <img id="bg" src="../images/bandi/bandi.jpg">
+    </div>
+</body>
+</html>
