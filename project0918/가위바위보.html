@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #content{
+        width: 400px;
+        height: 400px;
+        border: 4px solid blue;
+    }
+    #content img{
+        width: 400px;
+        height: 400px;
+    }
+</style>
+<script src="../js/lib.js"></script>
+<script>
+    function execute(){
+        // 0~2사이에 수를 랜덤으로 가져오게 끔 하는 (변수) 랜덤함수를 배워보자.
+        // 수학 관련된 함수는 Math 객체가 지원!
+
+        // var r = Math.random();
+        // console.log("Math.random()함수는 ",r);
+        // ==> Math.random() 자체는 언제나 1보다 작은 소수를 반환해준다.
+        // 즉, 1이 되지 못한다.
+        // 우리가 필요로 하는 수와는 틀리므로, r과 우리가 필요로 하는수를 곱한다.
+        // 즉, 우리가 필요로 하는 수 중 최대값을 곱한다.(n-1)
+        // 결론 : n * r의 최대 정수는 n-1 이 나오므로,
+        //          n 이라는결과를 추출하기 위해서는 r에 n+1을 곱해야 한다.
+        // console.log(Math.floor(r*3));
+        var r = getRandom(2);
+        console.log(r);
+
+        // innerHTML
+        var content = document.getElementById("content");
+        content.innerHTML="<img src=\"../images/random/"+r+".png\"/>";
+    }
+</script>
+</head>
+<body>
+    <button onclick="execute()">실행</button>
+    <br>
+    <div id="content"></div>
+</body>
+</html>

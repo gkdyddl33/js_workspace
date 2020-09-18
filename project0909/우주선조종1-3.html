@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #pic{
+        position: absolute;
+        left: 200px;
+        top: 50px;
+        width: 50px;
+    }
+    body{
+        background-image: url(https://media.gq.com/photos/5dd6dc33f9da71000989240f/master/w_1600%2Cc_limit/01-Klitmoller-Denmark-Cold-Hawaii-surfing-gq-november-2019.jpg);
+        background-size: 400px 400px;
+        background-repeat: repeat-x;
+        background-position: 0px 0px;
+    }
+</style>
+<script>
+    var x =270;
+    var y = 50;
+    bgX=0;
+    function moveLeft(){
+        y = y-10;
+        document.getElementById("pic").style.left=y+"px";
+    }
+    function moveRight(){
+        x = x+10;
+        document.getElementById("pic").style.left=x+"px";
+    }
+    function moveUp(){
+        y = y-10;
+        document.getElementById("pic").style.top=y+"px";
+    }
+    function moveDown(){
+        y = y+10;
+        document.getElementById("pic").style.top=y+"px";
+    }
+    function moveBg(){
+        bgX = bgX -1;
+        document.body.style.backgroundPosition=bgX+"px 0px";
+    }
+    function auto(){
+        setInterval("moveBg()",10);
+    }
+</script>
+</head>
+<body>
+    <button onclick="moveLeft()">◀</button>
+    <button onclick="moveRight()">▶</button>
+    <button onclick="moveUp()">▲</button>
+    <button onclick="moveDown()">▼</button>
+    <button onclick="moveBg()">수동</button>
+    <button onclick="auto()">자동</button>
+
+    <img  id="pic" src="https://w7.pngwing.com/pngs/445/474/png-transparent-airplane-toy-toy-plane-game-car-mode-of-transport.png">
+</body>
+</html>

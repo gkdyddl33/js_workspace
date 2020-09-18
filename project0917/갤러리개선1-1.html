@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    window.addEventListener("load",function(){
+        createThumb();
+        createDetail();
+    });
+    function createThumb(){
+        for(var i=1;i<=10;i++){
+            // 이미지생성
+            var thumbImage = document.createElement("img");
+            thumbImage.src = "../images/travel/"+i+".jpg";
+            // 이미지생성이 들어갈 부모를 만듬
+            var thumbDiv = document.querySelector(".thumb");
+            thumbDiv.appendChild(thumbImage);
+
+            thumbImage.addEventListener("click",function(){
+                detailImg.src=this.src;
+            });
+        }
+    }
+    function createDetail(){
+        var detailImg = document.createElement("img");
+        detailImg.src="../images/travel/1.jpg";
+        var detailDiv = document.querySelector(".detail");
+        detailDiv.appendChild(detailImg);
+    }
+</script>
+</head>
+<body onload="setColor()">
+    <div class="wrapper">
+        <div class="thumb"></div>
+        <div class="detail"></div>
+    </div>
+</body>
+</html>
