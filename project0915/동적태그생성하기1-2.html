@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+         // 이번엔 프로그램에서 태그를 생성해보자.
+         function createImage(){
+             var img = document.createElement("img");
+             img.src="../images/hero/image1.png";
+
+             img.style.border="2px solid red";
+             img.style.width=50+"px";
+
+             document.body.appendChild(img);
+         }
+    </script>
+</head>
+<body>
+    <button onclick="createImage()">이미지 동적생성</button>
+    <img id="pic" src="../images/hero/image1.png">
+</body>
+</html>

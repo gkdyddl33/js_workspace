@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    var ball;
+    var wrapper;
+    var x=0;
+    var y=0;
+    var stepX = 5;
+    var stepY = 4;
+    var flag = true;
+
+    function init(){
+        createButton();
+        // (1) div -> wrapper 생성
+        wrapper = document.createElement("div");
+        wrapper.style.width=300+"px";
+        wrapper.style.height=300+"px";
+        wrapper.style.background="yellow";
+        wrapper.style.margin="auto";
+        wrapper.style.position="relative";
+        document.body.appendChild(wrapper);
+
+        // (2) 공추가
+        ball = document.createElement("img");
+        ball.scr="../images/ball/ball2.jpg";
+        ball.style.width=50+"px";
+        ball.style.height=50+"px";
+        ball.style.position="absolute";
+        ball.style.left=100+"px";
+        ball.style.top=50+"px";
+        wrapper.appendChild(ball);
+
+    }
+        // (3)  버튼생성 - 자동,수동
+    function createButton(){
+        var bt1 = document.createElement("button");
+        var bt2 = document.createElement("button");
+        var bt3 = document.createElement("button");
+
+        bt1.addEventListener("click",function(){
+            move();
+        });
+
+        bt2.addEventListener("click",function(){
+            setInterval("move()",30);
+            // 비활성화
+            bt2.disabled = true;
+        });
+
+        bt3.addEventListener("click",function(){
+            flag = !flag;
+        });
+
+        bt1.innerText="수동";
+        bt2.innerText="자동";
+        bt3.innerText="pause";
+        document.body.appendChild(bt1);
+        document.body.appendChild(bt2);
+        document.body.appendChild(bt3);
+    }
+    function move(){
+        if(flag){// (5) pause 논리값 을 정해준다.
+            // (4) 공의 좌표를 증가 감소 시켜 움직임 효과를 내본다.
+            x = x+stepX;
+            y = y+stepY;
+
+            ball.style.left=x+"px";     // 공의 좌표를 변경
+            ball.style.top=y+"px";
+
+            // 닿은 순간 x 좌표 = 우측벽의 x좌표 - 공의너비
+            if(x>=(parseInt(wrapper.style.width) - parseInt(ball.style.width))||x<=0){
+                ball.style.border="1px solid red";
+                stepX = -stepX;
+            }
+            // 닿은순간 y좌표 = 바닥의 y좌표 - 공의높이
+            if(y>=(parseInt(wrapper.style.height) - parseInt(ball.style.height))||y<=0){
+                
+                stepY = -stepY;
+            }
+    }
+    }
+</script>
+</head>
+<body onload="init()">
+
+</body>
+</html>

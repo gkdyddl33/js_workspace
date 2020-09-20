@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 500px;
+        height: 500px;
+        background-color: rosybrown;
+        margin: auto;
+        position: relative;
+    }
+</style>
+<script>
+    var box;
+    var x = 50;
+    var y = 80;
+    var stepX = 5;
+    var stepY = 8;
+
+    function init(){
+        box = document.getElementById("box");
+        box.style.width=50+"px";
+        box.style.height=50+"px";
+        box.style.background="red";
+        box.style.position="absolute";
+        box.style.left=x+"px";
+        box.style.top=y+"px";
+
+    }
+    function move(){
+        x += stepX;
+        y += stepY;
+
+        if(y>=450){
+            box.style.background="blue";
+            y -= 8;
+        }
+
+        box.innerText="x="+x+",y="+y;
+        box.style.left=x+"px";
+        box.style.top=y+"px";
+    }
+</script>
+</head>
+<body onload="init()">
+    <div id="wrapper">
+        <button onclick="move()">수동</button>
+        <button onclick="auto()">자동</button>
+
+        <div id="box"></div>
+    </div>
+</body>
+</html>

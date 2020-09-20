@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #box{
+        width: 100px;
+        height: 100px;
+        background: red;
+        position: absolute;
+        left: 0px;
+        top: 150px;
+        color: yellow;
+        font-size: 40px;
+        font-weight: bold;
+        text-align: center;
+    }
+</style>
+<script>
+    var x =0;
+    var step=5;
+    var flag = true;
+
+    function move(){
+        // box의 left(x) 값을 변경하자
+        x += step;
+        document.getElementById("box").style.left=x+"px";
+        document.getElementById("box").innerText=x;
+
+        // 400에 도달하면 반대로 이동
+        flag = (x<=0||x>=400)? !flag:flag;
+        step = (flag)? 5:-5;         // -step :  step
+    }
+    function auto(){
+        setInterval("move()",10);
+    }
+</script>
+</head>
+<body>
+    <button onclick="move()">수동</button>
+    <button onclick="auto()">자동</button>
+
+    <div id="box"></div>
+</body>
+</html>

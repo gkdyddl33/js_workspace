@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    var msg;
+    
+    function openPrompt(){
+        var n = prompt("원하시는 숫자를 넣어주세요.");
+        alert("당신이 입력한 숫자는 "+n+" 이군요");
+
+        msg = (n%2==0)? "짝수" : "홀수";
+        document.getElementById("result").style.background="pink";
+        document.getElementById("result").value=msg+"네요";
+    }
+</script>
+</head>
+<body>
+    <button onclick="openPrompt()">프롬프트 띄우기</button>
+    <input id="result" type="text" value="결과를 기다리고 있어요.">
+</body>
+</html>

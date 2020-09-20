@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/c1772259824647.5a309e5d41f01.jpg);
+        background-size: 1024px 768px;
+        width: 1024px;
+        height: 768px;
+        margin: auto;
+        position: relative;
+        /* 현재의 div보다 컨텐츠가 넘치게 되면 안보이게 처리*/
+        overflow: hidden;
+    }
+    #bird{
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        left: 100px;
+        top: 50px;
+    }
+</style>
+<script>
+    var x =100;
+    var y =50;
+    var bg;
+
+    function joystick(){
+        // left 37, up 38, right 39, down 40
+        // (1)
+        // if(event.keycode==37){
+        //     console.log("좌측이동할래요");
+        //     moveleft();
+        // }else if(event.keycode==38){
+        //     console.log("위쪽이동할래요");
+        //     moveUp();
+        // }else if(event.keycode==39){
+        //     console.log("우측이동할래요");
+        //     moveright();
+        // }else if(event.keycode==40){
+        //     console.log("아래이동할래요");
+        //     moveDown();
+        // }
+        //(2)
+        switch(event.keycode){
+            case 37 : moveleft(); break;
+            case 38 : moveUp(); break;
+            case 39 : moveright(); break;
+            case 40 : moveDown(); break;
+            // default : alert("지원되지 않은 키를 눌렀습니다.");
+        }
+    }
+    function moveleft(){
+        x -= 5;
+        document.getElementById("bird").style.left=x+"px";
+    }
+    function moveright(){
+        x += 5;
+        document.getElementById("bird").style.left=x+"px";
+    }
+    function moveUp(){
+        y -= 5;
+        document.getElementById("bird").style.top=y+"px";
+    }
+    function moveDown(){
+        y += 5;
+        document.getElementById("bird").style.top=y+"px";
+    }
+    function moveBg(){
+        bg--;
+        document.getElementById("wrapper").style.backgroundPosition=bg+"px";
+    }
+    function auto(){
+        setInterval("moveBg()",10);
+    }
+</script>
+</head>
+<body onkeydown="joystick()">
+    <audio controls>
+        <source src="../sound/bgm (1).mp3" type="audio/mpeg">
+    </audio>
+    
+    <button onclick="auto()">배경테스트 용도</button>
+    <div id="wrapper">
+        <img id="bird" src="https://www.nicepng.com/png/detail/2-21959_angry-birds-png-angry-bird-png.png">
+    </div>
+</body>
+</html>

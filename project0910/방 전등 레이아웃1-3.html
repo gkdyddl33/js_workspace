@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 800px;
+        height: 600px;
+        background: red;
+        margin: auto;
+        position: relative;
+     
+    }
+    #code{
+        width: 100px;
+        height: 600px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        background: #f3afaf;
+    }
+    #content{
+        width: 700px;
+        height: 600px;
+        position: absolute;
+        left: 100px;
+        top: 0px;
+        background: seagreen;
+    }
+    #mask{
+        width: 700px;
+        height: 600px;
+        background: black;
+        opacity: 0.8;
+   
+    }
+    img, #mask{
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+</style>
+<script>
+    var status;
+    var flag=true;
+    var op = 1;
+    
+    function turn(){
+
+        status = (flag)? "on":"off";
+        flag = !flag;
+        document.getElementById("pic").src="../images/light/switch_"+status+".png";
+    
+        // 투명도
+        op = (flag)? 0:0.8;
+        document.getElementById("mask").style.opacity=op;
+    }
+</script>
+</head>
+<body>
+    <div id="wrapeer">
+        <div id="code">
+            <img id="pic" src="../images/light/switch_off.png" onclick="turn()">
+        </div>
+
+        <div id="content">
+            <img src="../images/light/room.jpg" width="700px" height="600px">
+            <div id="mask"></div>
+        </div>
+    </div>
+</body>
+</html>
