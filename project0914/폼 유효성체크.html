@@ -93,7 +93,7 @@
                             즉 태그와 태그를 구분하기 위해서 id나 name을 줄 수있다.
                 차이점 : id는 말 그대로 명칭이 유일해야 하지만, name 은 중복이 가능            
           -->
-        <form name="form1" onSubmti="event.preventDefault()">
+        <form name="form1" onsubmit="event.preventDefault()">
             <!-- 스마트 폰에도 사용하기 위해서 같이 연동해서 개발할 수 있다. -->
             <label for="user">접수자ID</label>
             <input type="text" id="user" placeholder="접수자 아이디 입력.."/>
@@ -116,7 +116,7 @@
                     무조건 현재 폼을 서버에 전송하려는 특징이 있다.
                     따라서 페이지가 깜빡거리는 것을 느낄수 있다.
                     방지방법?
-                    form 태그에 onSubmti="event.preventDefault()" -->
+                    form 태그에 onSubmit="event.preventDefault()" -->
                 <button onclick="regist()">등록하기</button>
         </form>
     </div>

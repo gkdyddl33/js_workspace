@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 500px;
+        height: 450px;
+        background: yellow;
+        margin: auto;
+    }
+    #mask{
+        width: 500px;
+        height: 400px;
+        background: dodgerblue;
+        overflow: hidden;
+    }
+    #navi{
+        /* div의 컨텐츠를 가운데 정렬 */
+        text-align: center;
+        font-size: 30px;
+    }
+    a{
+        text-decoration: none;
+    }
+    #box{
+        /* box width 500 x 7개 */
+        width: 3500px;
+        height: 400px;
+        background: burlywood;
+    }
+</style>
+<script>
+    var box;
+    let a = 0.1;
+
+    var targetX=0;
+    
+    window.addEventListener("load",function(){
+        init();
+        setInterval("move()",10);
+    });
+    
+    // ->(3) 수동 움직임(부드럽게 = 감속도)
+    function move(){
+        // 목표지점 = 한칸 한칸 이미지 = target
+        box.style.left = parseFloat(box.style.left)+a*(targetX-parseFloat(box.style.left))+"px";
+        
+    }
+
+    // 프로그램 가동 되고 바로 할 것이 있다면 = 초기화
+    function init(){
+        // mask안에 box에 이미지를 넣을 것, 반복문을 이용하여 여러 사진 넣음 = 전역변수 선언
+        box = document.getElementById("box");
+        // -> (2)
+        box.style.position="relative";
+        box.style.left=0+"px";
+
+        // -> (1) 원하는 이미지 갯수만큼 반복문 수행하여 이미지 동적으로 생성
+        for(var i = 1;i<=7;i++){
+            var img = document.createElement("img");
+            img.src="../images/travel/"+i+".jpg";
+            img.style.width=500+"px";
+            img.style.height=400+"px";
+
+            box.appendChild(img);
+        }
+    }
+
+    // box  div = navi 의 좌표를 설정한다.
+    function setTarget(x){
+        // 다음 이미지를 보이기 위해 -500(width)로 이동
+        // ex. 500 1000 1500 ... 변한다 = 변수
+        // box.style.left=x+"px";
+        targetX = x;
+    }
+</script>
+<script></script>
+</head>
+<body>
+
+    <div id="wrapper">
+        <div id="mask"> 
+            <!--  사진 나올 곳(단,나머지는 가려짐)
+                아래 div는 사진을 담을 div -->
+            <div id="box">
+                <!-- <img src="../images/travel/1.jpg"> 
+                    위에 이미지를 여러번 붙여넣지 말고 반복문을 이용해보자. -->
+            </div>
+        </div>
+        <div id="navi">
+            <!-- 자바스크립트를 작성할 수 있는 영역은 총 3가지
+                1) <script> 태그안에서
+                2) onClick = "자바스크립트 영역"
+                3) a href = "javascript:자바스크립트 영역"
+
+                변하는 값 = 매개변수(x) = 여러개 함수가 아닌 한 가지 함수로 이용가능.
+             -->
+            <a href="javascript:setTarget(0)">●</a>
+            <a href="javascript:setTarget(-500)">●</a>
+            <a href="javascript:setTarget(-1000)">●</a>
+            <a href="javascript:setTarget(-1500)">●</a>
+            <a href="javascript:setTarget(-2000)">●</a>
+            <a href="javascript:setTarget(-2500)">●</a>
+            <a href="javascript:setTarget(-3000)">●</a>
+        </div>
+    </div>
+
+</body>
+</html>
