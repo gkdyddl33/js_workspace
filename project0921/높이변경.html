@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    var box;
+    let a = 0.1;
+    // 메뉴가 도달할 높이
+    var targetH = 0;
+
+    window.addEventListener("load",function(){
+        init();
+        setInterval("move()",25);
+    });
+
+    function init(){
+        // 메뉴를 포현한 사각형 생성하기
+        createMenu();
+    }
+    function createMenu(){
+        // (1) 마우스를 올려놓을 box를 만들자.
+        box = document.createElement("div");
+        box.style.width=200+"px";
+        box.style.height=35+"px";
+        box.style.background="red";
+        box.style.borderRadius="6px";
+
+        box.style.position="relative";
+        box.style.top=0+"px";
+
+        document.body.appendChild(box);
+
+        box.addEventListener("mouseover",function(){
+            // 마우스를 올려놓으면, 높이가 500px 도달하게 처리
+            // 목표지점설정
+            // box.style.height=500+"px";
+            targetH = 500;
+        });
+        box.addEventListener("mouseout",function(){
+            // 마우스를 내려놓으면, 다시 35px로 돌아오게 처리            
+            // 목표지점설정
+            // box.style.height=35+"px";
+            targetH = 35;
+        });
+    }
+    function move(){
+        // 메뉴의 높이 = 현재 높이 + 비율계수 * (목표지점 - 현재높이)
+        box.style.height = parseFloat(box.style.height) + a* (targetH-parseFloat(box.style.height))+"px";
+    }
+    
+</script>
+</head>
+<body>
+
+</body>
+</html>
