@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    li{
+        list-style-type:none;
+    }
+</style>
+<script>
+    function checkAll(){
+        // 대표 체크박스의 상태에 따라서 나머지 체박스도 체크상태 결정!
+        // 체크박스 배열
+        var ch = document.getElementsByName("ch");
+
+        // 반복문으로 모든 체크박스를 처리하기 전에 먼저 대표체크박스가 현재 어떤
+        // 상태인지 먼저 조사해야 한다.
+        alert("대표의 상태는 "+document.getElementsById("king").checked);
+
+        for(var i =0;i<ch.length;i++){
+            // 두번째 체크박스를 체크상태로 둔다.
+            ch[i].checked = document.getElementsById("king").checked;       // true 이기 때문에 전체 선택이 됨.
+                                                  // 즉, 대표박스의 상태를 적는 것
+        }
+    }
+</script>
+</head>
+<body>
+    <ul>
+        <li><input id="king" type="checkbox" onclick="checkAll()">대표박스</li>        
+        <li><input type="checkbox" name="ch">메일제목</li>        
+        <li><input type="checkbox"name="ch">메일제목</li>       
+        <li><input type="checkbox" name="ch">메일제목</li>        
+        <li><input type="checkbox" name="ch">메일제목</li>        
+        <li><input type="checkbox" name="ch">메일제목</li>        
+        <li><input type="checkbox" name="ch">메일제목</li>        
+        <li><input type="checkbox" name="ch">메일제목</li>        
+        <li><input type="checkbox" name="ch">메일제목</li>        
+        <li><input type="checkbox" name="ch">메일제목</li>        
+    </ul>
+</body>
+</html>
