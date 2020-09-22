@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 400px;
+        height: 650px;
+        background: chocolate;
+        margin: auto;
+    }
+    #question{
+        width: 100%;
+        height: 250px;
+        background-color: cornflowerblue;
+        font-size: 95px;
+        text-align: center;
+    }
+    .word-input{
+        width: 100%;
+        height: 100px;
+        background-color: rgb(252, 245, 156);
+    }
+    .word-input input{
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        font-size: 30px;
+        text-align: center;
+    }
+    #feedback{
+        width: 100%;
+        height: 200px;
+        font-size: 170px;
+        text-align: center;
+    }
+    #record{
+        width: 100%;
+        height: 100px;
+        background: cornsilk;
+        font-size: 70px;
+        text-align: center;
+    }
+</style>
+<script>
+    /* (1) 상단에 들어갈 데이터(단어)에 순서를 갖게 하자. 배열 생성 */
+    var word = new Array();
+    word[0] = "광화문";
+    word[1] = "지하철";
+    word[2] = "소나기";
+    word[3] = "블랙홀";
+    word[4] = "핵전쟁";
+    word[5] = "짜장면";
+    word[6] = "제주도";
+    word[7] = "코로나";
+    word[8] = "자습실";
+    word[9] = "카메라";
+
+    /* (2) 초기화 */
+    window.addEventListener("load",function(){
+        init();
+    });
+
+    var question;
+    var txt;
+    var feedback;
+    var record;
+    var score = 0;
+    var n = 0;
+
+    function init(){
+        /* (2-1) ID가 부여된 element 들을 전역변수로 미리 선언하자. */
+        question = document.getElementById("question");
+        txt = document.getElementById("txt");
+        feedback = document.getElementById("feedback");
+        record = document.getElementById("record");
+
+        /* (3) 함수 호출 */
+        printWord();
+        printScore();
+        txt.focus();
+
+        /* (2-2) txt box 에 단어를 치고 엔터를 치면 다음으로 넘어가게 하자 */
+        txt.addEventListener("keyup",function(){
+            // console.log("철자를 쳤네요.");
+            // event.keyCode = 13
+            
+            /* (2-3) 입력한 단어와 출력된 단어의 일치성을 판단한 후 피드백처리 */
+            if(event.keyCode==13){
+                if(txt.value==question.innerText){
+                    feedback.innerText="O";
+                    score +=10;
+                    printScore();
+                }else{
+                    feedback.innerText="X";
+                    score -=10;
+                    printScore();
+                }
+
+                // 데이터 초기화
+                txt.value="";
+                /* (2-4) 단어출력 -> 단어가 다 끝나면 게임오버 */
+                // 다음 단어 나오게 ++
+                n++;
+                if(n>=word.length){
+                    alert("게임종료");
+                    question.innerText="Game Over";
+                }else{
+                    printWord();
+                }
+            }
+        });
+    }
+    function printWord(){
+        // question 창에 단어 보이게 하기 -> 피드백 처리가 가능함
+        question.innerText=word[n];
+    }
+    function printScore(){
+        record.innerText=score+"점";
+    }
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="question">단어</div>
+        <div class="word-input">
+            <input id="txt" type="text" placeholder="단어를 따라치세요.">
+        </div>
+        <div id="feedback">X</div>
+        <div id="record">점</div>
+    </div>
+</body>
+</html>
