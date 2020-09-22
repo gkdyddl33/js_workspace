@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    var tx;
+    var ty;
+    var box;
+    let a = 0.1;
+    var targetX=0;
+    var targetY=0;
+
+    window.addEventListener("load",function(){
+        init();
+        setInterval("move()",100);
+    });
+function init(){
+    // input, button, box 초기화
+    tx = document.getElementById("tx");
+    ty = document.getElementById("ty");
+
+    box = document.getElementById("box");
+    box.style.position="absolute";
+    box.style.left=0+"px";
+    box.style.top=200+"px";
+    box.style.background="seagreen";
+    box.style.border="2px solid black";
+    box.style.boxSizing="border-box";
+    box.style.width=100+"px";
+    box.style.height=100+"px";
+
+    document.body.appendChild(box);
+
+    var bt = document.getElementById("button");
+    bt.addEventListener("click",function(){
+        setTarget();
+    });
+}
+function move(){
+    // (1) 수동
+    box.style.left = parseFloat(box.style.left) + a*(targetX-parseFloat(box.style.left))+"px";
+    box.style.top = parseFloat(box.style.top) + a*(targetY-parseFloat(box.style.top))+"px";
+    // 박스안에 움직이는 타켓 위치 출력
+    box.innerText="x:"+parseFloat(box.style.left)+"\ny:"+parseFloat(box.style.top);
+}
+function setTarget(){
+    // 타켓을 입력하면 갈 수 있게끔
+    targetX = parseFloat(tx.value);
+    targetY = parseFloat(ty.value);
+}
+</script>
+</head>
+<body>
+    <input id="tx" type="text" placeholder="목표 x좌표">
+    <input id="ty" type="text" placeholder="목표 y좌표">
+    <button>이동</button>
+    <div id="box"></div>
+</body>
+</html>

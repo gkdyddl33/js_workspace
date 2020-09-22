@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 500px;
+        height: 450px;
+        background: salmon;
+        margin: auto;
+    }
+    #mask{
+        width: 500px;
+        height: 400px;
+        background: sandybrown;
+        overflow: hidden;
+    }
+    #navi{
+        text-align: center;
+        font-size: 30px;
+    }
+    a{
+        text-decoration: none;
+    }
+    #box{
+        width: 3500px;
+        height: 400px;
+        background: cornsilk;
+    }
+</style>
+<script>
+    var box;
+    var targetX=0;
+    let a =0.1;
+
+    function move(){
+        box.style.left = parseFloat(box.style.left) + a*(targetX-parseFloat(box.style.left))+"px";
+    }
+    window.addEventListener("load",function(){
+        init();
+        setInterval("move()",10);
+    });
+    function init(){
+        // mask 안에 이미지 넣을 것 => 반복문 사용 1~7
+        box = document.getElementById("box");
+        box.style.position="relative";
+        box.style.left=0+"px";
+
+        for(var i =1;i<=7;i++){
+            // 반복문 수행 => 이미지 동적생성
+            var img = document.createElement("img");
+            img.src="../images/travel/"+i+".jpg";
+            img.style.width=500+"px";
+            img.style.height=400+"px";
+
+            box.appendChild(img);
+        }               
+    }
+    // box  div = navi 의 좌표를 설정한다.
+    function setTarget(x){
+        targetX = x;
+    }
+</script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="mask">
+            <!--  사진 나올 곳(단,나머지는 가려짐)
+                아래 div는 사진을 담을 div -->
+                <div id="box"></div>
+                <!-- <img src="../images/travel/1.jpg"> 
+                    위에 이미지를 여러번 붙여넣지 말고 반복문을 이용해보자. -->
+        </div>
+        <div id="navi">
+            <a href="javascript:setTarget(0)">●</a>
+            <a href="javascript:setTarget(-500)">●</a>
+            <a href="javascript:setTarget(-1000)">●</a>
+            <a href="javascript:setTarget(-1500)">●</a>
+            <a href="javascript:setTarget(-2000)">●</a>
+            <a href="javascript:setTarget(-2500)">●</a>
+            <a href="javascript:setTarget(-3000)">●</a>
+        </div>
+    </div>
+</body>
+</html>
