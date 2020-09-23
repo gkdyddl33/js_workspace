@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 700px;
+        height: 600px;
+        border: 2px solid red;
+        margin: auto;
+        position: relative;
+        
+    }
+</style>
+<script src="../js/lib.js"></script>
+<script>
+    window.addEventListener("load",function(){
+        init();
+        createBar();
+        setInterval("move()",10);
+    });
+
+    function init(){
+        wrapper = document.getElementById("wrapper");
+
+        // barArray보다 색상을 먼저 존재시키자.-> 아래 방법을 개선해보자.
+        // colorArray[0] = "red";
+        // colorArray[1] = "orange";
+        // colorArray[2] = "yellow";
+        // colorArray[3] = "green";
+        // colorArray[4] = "blue";
+        // colorArray[5] = "navy";
+        // colorArray[6] = "purple";
+
+        createBar();      
+        // setInterval("move()",10)  ;
+    }
+    
+    var bar;
+    var wrapper;
+    // (4-1) 500 ->20 원래 높이길이로 수렴 -> 쭉 한번에 늘어나게 해줄려면?
+    var targetH=20;
+    var a = 0.1;
+
+    // (1) 막대 생성 함수
+    var barArray = new Array();
+    var barWidth=65;
+
+    // 7개 각각 색상을 줄려면 변수를 땨로 생성 -> 위에 초기화 방법을 개선한것
+    // 배열 선언과 동시에 초기화 가능
+    var colorArray= ["red","orange","yellow","green","blue","navy","purple"];
+    
+    // alert(barArray.length);
+    function createBar(){
+        for(var i=0;i<7;i++){
+
+            bar = document.createElement("div");
+            bar.style.position="absolute";
+            bar.style.left=(barWidth*i)+"px";
+            bar.style.top=50+"px";
+            bar.style.width=barWidth+"px";
+            bar.style.height=20+"px";
+            bar.style.borderRadius="4px"            
+            bar.style.background=colorArray[i];
+            
+            wrapper.appendChild(bar);
+
+            // 사이즈가 0인 배열에, 방금 생성된 바를 추가하자.
+            // 개발자가 그 크기를 정해놓지 못할 경우엔 아주 유용하다.
+            // ex. 채팅서버 구축시 사용자가 몇명이 들어올지 알 수가 없다.
+            barArray.push(bar);
+            console.log("현재까지의 배열의 길이는 ",barArray.length);
+            
+            // (5) 버튼을 누르면 7개의 bar들이 움직일 수 있게끔 = 랜덤하게
+
+        }
+
+    }
+
+    // (2) 막대 크기 변경 함수
+    function move(){
+        // 랜덤하게 targetH를 변하게 해볼까?
+        targetH=getRandomBetween(20,500);
+        // 0~6 사이의 랜덤한 숫자를 추출
+        // 어느 녀석이 움직일 지는 = index
+        var index = getRandom(barArray.length-1);
+
+        barArray[index].style.height = parseFloat(barArray[index].style.height)+a*(targetH-parseFloat(barArray[index].style.height))+"px";
+        barArray[index].innerText=parseFloat(barArray[index].style.height);
+    }
+
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

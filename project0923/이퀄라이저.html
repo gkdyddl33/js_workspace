@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 700px;
+        height: 600px;
+        border: 2px solid red;
+        margin: auto;
+        position: relative;
+        
+    }
+</style>
+<script>
+    window.addEventListener("load",function(){
+        init();
+        createBar();
+        // setInterval("move()",10);
+    });
+
+    function init(){
+        wrapper = document.getElementById("wrapper");
+        createBar();
+        createButton();
+    }
+    
+    var bar;
+    var wrapper;
+    // (4-1) 500 ->20 원래 높이길이로 수렴 -> 쭉 한번에 늘어나게 해줄려면?
+    var targetH=20;
+    var a = 0.1;
+
+    var barArr = new Array(7);
+    // (1) 막대 생성 함수
+    function createBar(){
+        for(var i=0;i<barArr.length;i++){
+
+            bar = document.createElement("div");
+            bar.style.position="absolute";
+            bar.style.left=0+"px";
+            bar.style.top=50+"px";
+            bar.style.width=65+"px";
+            bar.style.height=20+"px";
+            bar.style.borderRadius="4px"
+            bar.style.background="chocolate";
+            wrapper.appendChild(bar);
+            
+            // (3)bar에 마우스를 올려 놓으면 = 이벤트 구현하기
+            bar.addEventListener("mouseover",function(){
+                // (4-1)
+                targetH=500;
+                // (3-1) 자동으로 하고 싶을 때 아래 함수 호출.
+                // move();
+            });
+            bar.addEventListener("mouseout",function(){
+                targetH=20;            
+            });
+        }
+    }
+
+    // (2) 막대 크기 변경 함수
+    function move(){
+        bar.style.height = parseFloat(bar.style.height)+a*(targetH-parseFloat(bar.style.height))+"px";
+        bar.innerText=parseFloat(bar.style.height);
+    }
+
+    // (5) 버튼을 누르면 7개의 bar들이 움직일 수 있게끔 = 랜덤하게
+    function createButton(){
+        var bt = document.createElement("button");
+        bt.innerText="자동움직임";
+        document.body.appendChild(bt);
+
+        bt.addEventListener("click",function(){
+            move();
+        });
+    }
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

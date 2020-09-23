@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7개를 대상으로 마우스 올려놓으면 각자 늘어낫다 줄어들었다</title>
+<style>
+#wrapper{
+    width:700px;
+    height:600px;
+    border:2px solid red;
+    margin: auto;
+    position: relative;
+}    
+</style>
+<script>
+var wrapper;
+var barArray=new Array();//공간 확보는 하지 않고, 배열만 선언한 것임
+//배열 선언과 동시에 초기화가 가능하다(데이터량이 많지 않을 경우, 반복문과 상관없을시..)
+var colorArray=["red","orange","yellow","green","blue","navy","purple"]; //각 div 에 적용할 색상 배열 
+//alert(barArray.length);
+var a=0.1;
+var targetH=[20,20,20,20,20,20,20]; //바들 각자의 목표 높이
+var barWidth=65; //막대바의 너비
+var index = 0;
+
+//막대생성 
+function createBar(){
+    for(var i=0;i<7;i++){
+        var bar=document.createElement("div");
+        bar.style.position="absolute";
+        bar.style.left=(barWidth*i)+"px";
+        bar.style.top=0+"px";
+        bar.style.width=barWidth+"px";
+        bar.style.height=20+"px";
+        bar.style.borderRadius="4px";
+        bar.style.background=colorArray[i]; //배열색상을 적용
+
+        // id를 동적으로
+        bar.id=i;
+
+        // 여기서 전역변수 index값을 어떻게 주느냐에 따라 움직일 막대가 결정됨
+        bar.addEventListener("mouseover",function(){
+            // 현재 막대는 move에서 움직이므로 아래와 같은 코드를 사용안해도됨
+            // this.style.height=targetH+"px";
+            targetH[index]=500;
+
+            // < 늘어나는 과정을 풀이 한것 >
+            // this를 이용하면 이벤트를 일으킨 막대를 제어할 수 있다.
+            // 즉 this가 바로 내가 마우스 올린 막대이다.
+            // alert("저의 아이디는 "+this.id);
+            index=this.id;
+        });
+
+        // < 원위치로 돌아가는 과정을 풀이 한것 >
+        bar.addEventListener("mouseout",function(){
+            // targetH 를 하나의 변수로 공유를 하다보니깐 마우스를 떼면 바로 
+            // 안돌아간다. 그래서 공유를 하지말고 배열로 나눠서 사용하게 하자.
+            targetH[index]=20;
+            index=this.id;
+        });
+        wrapper.appendChild(bar);//wrapper에 추가!!
+        //사이즈가 0인 배열에 , 방금 생성된 바를 추가하자!!
+        //개발자가 그 크기를 정해놓지 못할 경우엔 아주 유용하다!!
+        //ex) 채팅서버 구축시 사용자가 몇명이 들어올지 알수가 없다..
+        barArray.push(bar);
+        // console.log("현재까지의 배열의 길이는 ", barArray.length);
+    }
+}    
+
+//막대크기 변경 함수 
+function move(){
+    
+        // 선택한 막대에서만 움직이게 만들어야 함....
+        barArray[index].style.height = parseFloat(barArray[index].style.height) + a*(targetH[index]-parseFloat(barArray[index].style.height))+"px";
+        barArray[index].innerText=parseFloat(barArray[index].style.height);
+}
+
+function init(){
+    wrapper=document.getElementById("wrapper");
+    //barArray보다 색상을 먼저 존재시키자 
+    /*
+    colorArray[0]="red";
+    colorArray[1]="orange";
+    colorArray[2]="yellow";
+    colorArray[3]="green";
+    colorArray[4]="blue";
+    colorArray[5]="navy";
+    colorArray[6]="purple";
+    */
+    createBar();
+    setInterval("move()",10);
+}   
+window.addEventListener("load",function(){
+    init();
+}); 
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>
