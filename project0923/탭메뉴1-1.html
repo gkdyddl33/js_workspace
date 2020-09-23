@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+ .wrapper{
+     width: 600px;
+     height: 500px;
+     background: wheat;
+     margin: auto;
+ }
+ .tab{
+     width: 100%;
+     height: 50px;
+ }
+ .tab a{
+     text-decoration: none;
+     display: inline-block;
+     width: 196px;
+     height: 50px;
+     text-align: center;
+     font-size: 25px;
+     /* margin-right: -4px; */
+ }
+ #box1, #box2, #box3{
+    width: 100%;
+    height: 450px;
+ }
+ #box1{
+    background: seagreen;
+ }
+ #box2{
+    background: gold;
+    display: none;
+ }
+ #box3{
+    background: dodgerblue;
+    display: none;
+ }
+</style>
+<script>
+    window.addEventListener("load",function(){
+        init();
+    });
+    var boxArray;
+    function init(){
+        boxArray = document.getElementsByName("box");
+    }
+
+    function showHide(n){
+        for(var i=0;i<boxArray.length;i++){
+            if(n==i){
+                boxArray[i].style.display="block";
+            }else{
+                boxArray[i].style.display="none";
+            }
+        }
+    }
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="tab">
+            <a href="javascript:showHide(0)" style="background: seagreen;">공지사항</a>
+            <a href="javascript:showHide(1)" style="background: gold;">qna</a>
+            <a href="javascript:showHide(2)" style="background: dodgerblue;">자유게시판</a>
+        </div>
+        <div class="content">
+            <div id="box1" name="box"></div>
+            <div id="box2" name="box"></div>
+            <div id="box3"name="box"></div>            
+        </div>
+    </div>
+</body>
+</html>

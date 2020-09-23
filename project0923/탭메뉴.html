@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 600px;
+        height: 500px;
+        background: wheat;
+        margin: auto;
+    }
+    .tab{
+        width: 100%;
+        height: 50px;
+        /* background: violet; */
+    }
+    #box1, #box2, #box3{
+        width: 100%;
+        height: 450px;
+    }
+    #box1{
+        background: seagreen;
+    }
+    #box2{
+        background: gold;
+        display: none;
+    }
+    #box3{
+        background: dodgerblue;
+        display: none;
+    }
+    .tab a{
+        text-decoration: none;
+        /* a태그는 너비와 높이를 가질 수가 없다. */
+        display: inline-block;
+        width: 196px;
+        height: 50px;
+        text-align: center;
+        font-size: 25px;
+        /* 마진을 음수로 주면 해결됨(구글링) */
+        margin-right: -4px;
+    }
+</style>
+<script>
+    var boxArray;
+
+    function init(){
+        // 위에 new 라는 배열 생성을 하지 않아도 됨
+        // 아리에 크기가 3인 배열을 반환 [div][div][div]
+        boxArray = document.getElementsByName("box");        
+    }
+    window.addEventListener("load",function(){
+        init();
+    });
+
+
+    // 배열을 이용해서 함수를 하나로 만들수도 있음
+    // 아니면 매개변수로 사용    
+    function showHide(n){  
+        // alert(boxArray.length);
+        for(var i=0;i<=boxArray.length;i++){            
+            if(n==i){
+                // 그렇다 아니다 하는 흑백논리
+                boxArray[i].style.display = "block"; 
+                // 전부 보임 - > 지금 선택한 탭이라면
+            }else{
+                boxArray[i].style.display="none";      
+                // 전부 안보임 -> 지금 선택한 탭이 아니라면
+            }
+        }
+    }
+
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="tab">
+            <a href="javascript:showHide(0)" style="background: seagreen;">공지사항</a>
+            <a href="javascript:showHide(1)" style="background: gold;">QnA</a>
+            <a href="javascript:showHide(2)" style="background: dodgerblue;">자유게시판</a>
+        </div>
+        <div class="content">
+            <!-- id는 디자인땜에 사용 name은 프로그램을 위해 사용하는 것 -->
+            <div id="box1" name="box"></div>
+            <div id="box2" name="box"></div>
+            <div id="box3" name="box"></div>
+        </div>     <!-- 내용 나올곳-->
+    </div>
+</body>
+</html>

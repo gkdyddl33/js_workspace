@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    body{
+        background-color: black;
+    }
+    #wrapper{
+        width: 400px;
+        height: 75px;
+        background-color: whitesmoke;
+        margin: auto;
+        position: relative;
+        /* overflow: hidden; */
+    }
+</style>
+<script>
+    var arr = new Array(5);
+    window.addEventListener("load",function(){
+        init();
+    });
+
+    function init(){
+        for(var i=0;i<5;i++){
+            var div = document.createElement("div");
+            arr[i]=div;
+            div.src="../images/travel/"+(i+1)+".jpg";
+            div.style.width=100+"px";
+            div.style.height=75+"px";
+            div.style.position="absolute";
+            div.style.left=(i*100)+"px";
+
+            div.style.border="5px solid red";
+            div.style.boxSizing="border-box";
+
+            // 현재의 좌표
+            div.innerText=div.style.left;
+            div.style.color="orange";
+
+            var wrapper = document.getElementById("wrapper");
+            wrapper.appendChild(div);
+        }
+    }
+    function move(){
+        for(var i=0;i<arr.length;i++){
+            arr[i].style.left = parseInt(arr[i].style.left)-1+"px";
+            arr[i].innerText=arr[i].style.left;
+            if(parseInt(arr[i].style.left)<=-100){
+                arr[i].style.left=400+"px";
+            }
+        }
+    }
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>
+    <button onclick="move()">수동움직임</button>
+</body>
+</html>
