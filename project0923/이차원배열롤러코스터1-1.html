@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이차원배열은 데이터베이스다.</title>
+<style>
+    .wrapper{
+        width: 1200px;
+        height: 700px;
+        background: rgb(241,241,8);
+        overflow: hidden;
+    }
+    body{margin: 0px;}
+    #content{
+        width: 1000px;
+        height: 100%;
+        background: url(https://image.freepik.com/free-vector/scene-with-roller-coaster-track-in-the-field_1308-38332.jpg);
+        background-size: 1000px 100%;
+        float: left;
+    }
+    #info{
+        width: 200px;
+        height: 100%;
+        background-size: yellow;
+        float: left;
+    }
+</style>
+<script>
+    window.addEventListener("load",function(){
+        init();
+    });
+
+    var content;            // 좌표 점을 찍고, 이미지도 추가
+    var info;                 // 이차원 배열에 쌓여진 데이터 현황 출력
+    // 배열생성
+    var dotArray = new Array();
+
+    function init(){
+        content = document.getElementById("content");
+        info = document.getElementById("info");
+    }
+
+    // 즉 좌표 데이터베이스를 구축하자 = 이차원 배열은 테이터베이스이다.
+    function setPoint(){
+        var x = event.clientX;
+        var y = event.clientY;
+
+        // 좌표 찍을 때 표시 나게 해주는 div
+        var dot = document.createElement("div");
+        dot.style.width=5+"px";
+        dot.style.height=5+"px";
+        dot.style.background="red";
+        dot.style.position="absolute";
+        // 좌표 찍을 위치가 변하므로 = 변수
+        dot.style.left=x+"px";
+        dot.style.top=y+"px";
+        content.appendChild(dot);
+
+        // 좌표를 담을 변수 생성
+        var point = [x,y];
+        // 좌표를 담을 배열 생성
+        dotArray.push(point);
+        printInfo();
+    }
+    function printInfo(px,py){
+        // 이차원 배열을 누적할 정보창을 출력
+        var str="";
+        for(var i=0;i<dotArray.length;i++){
+            // dotArray에 담아둔 모든 데이터를 출력 =  반환
+            var point = dotArray[i];
+            str += "["+point[0]+","+point[1]+"]<br/>";
+        }
+        info.innerHTML=str;
+    }
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="content" onclick="setPoint()"></div>
+        <div id="info"></div>
+    </div>
+</body>
+</html>

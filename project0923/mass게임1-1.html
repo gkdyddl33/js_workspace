@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    var cellWidth=30;
+    var cellHeigth=30;
+    var wrapper;
+    var row=10;
+    var col=10;
+    var cellArray = new Array(row*col);
+    var index = 0;
+
+    function createCell(){
+        var n=0;
+        for(var a=0;a<row;a++){//층수    
+            for(var i=0;i<col;i++){// 호수
+                var cell = document.createElement("div");
+                // 셀의 너비와 높이는 변해야 한다. => 자동으로 늘어났다 줄어났다 해야 하므로
+                cell.style.width=cellWidth+"px";
+                cell.style.height=cellHeigth+"px";
+                cell.style.border="1px solid red";
+                cell.style.boxSizing="border-box";
+                cell.style.background="seagreen";
+                // 불투명해야 사진을 가린다. => 조절하면 이미지가 보인다.
+                cell.style.opacity=1;
+                cell.style.float="left";
+                wrapper.appendChild(cell);
+
+                cellArray[n]=cell;
+                n++;
+
+                cell.addEventListener("click",function(){
+                    this.style.opacity=0;
+                });
+            }
+        }    
+    }
+    function createFrame(){
+        wrapper = document.createElement("div");
+        wrapper.style.margin="auto";
+        wrapper.style.background="darkgray";
+
+        wrapper.style.width=(cellWidth*col)+"px";
+        wrapper.style.height=(cellHeigth*row)+"px";
+
+        wrapper.style.overflow="hidden";
+
+        wrapper.style.backgroundImage="url(../images/travel/1.jpg";
+        wrapper.style.backgroundSize=parseInt(wrapper.style.width)+"px"+parseInt(wrapper.style.height)+"px";
+        document.body.appendChild(wrapper);
+    }
+    function createButton(){
+        var bt = document.createElement("button");
+        bt.innerText="해답보기";
+        document.body.appendChild(bt);
+
+        bt.addEventListener("click",function(){
+            setInterval("setOpacity()",1);
+        });
+    }
+    function setOpacity(){
+        cellArray[index].style.opacity=0;
+        if(index<cellArray.length-1){
+            index++;
+        }
+    }
+
+    window.addEventListener("load",function(){
+        init();
+    });
+    function init(){
+        // 셀생성, 액자 생성, 버튼 생성 함수 호출
+        createFrame();
+        createCell();
+        createButton();
+    }
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

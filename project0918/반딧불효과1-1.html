@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 1200px;
+        height: 800px;
+        background-image: url(../images/bandi/bandi.jpg);
+        margin: auto;
+        position: relative;
+    }
+    #wrapper img{
+        width: 1200px;
+        height: 800px;
+    }
+</style>
+<script src="../js/lib.js"></script>
+<script>
+    var wrapper;
+    var bg;
+    var light;
+    var a = 0.1;
+    var targetX;
+    var targetY;
+    var count = 0;
+    var sx=1;
+    var sy=1;
+
+    window.addEventListener("load",function(){
+        wrapper = document.getElementById("wrapper");
+        bg = document.getElementById("bg");
+
+        setInterval("move()",20);
+        setInterval("moveBg()",10);
+        
+        // 반딧물 생성
+        createLight();
+    });
+
+    // 반딧물생성
+    function createLight(){
+        light = document.createElement("div");
+        light.style.width=30+"px";
+        light.style.height=30+"px";
+        light.style.background="yellow";
+
+        light.style.position="absolute";
+        light.style.left=100+"px";
+        light.style.top=150+"px";
+
+        light.style.borderRadius=50+"px";
+        light.style.opacity=0.4;
+
+        wrapper.appendChild(light);
+    }
+    function move(){
+        light.style.left = parseInt(light.style.left) + a *(targetX-parseInt(light.style.left))+"px";
+        light.style.top = parseInt(light.style.top) + a *(targetY-parseInt(light.style.top))+"px";
+            
+        if(count%300==0){
+            targetX=getRandom(800);
+            targetY=getRandom(800);
+        }
+    }
+
+    function moveBg(){
+        sx += 0.0002;
+        sy += 0.0002;
+        bg.style.transform="scale("+sx+","+sy+")";
+    }
+</script>
+</head>
+<body>
+    <div id="wrapper">
+        <img id="bg"  src="../images/bandi/bandi.jpg">
+    </div>
+</body>
+</html>
