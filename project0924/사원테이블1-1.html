@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 1000px;
+        height: 700px;
+        background: yellow;
+        margin: auto;
+        overflow: hidden;
+    }
+    .regist-form{
+        width: 200px;
+        height: 100%;
+        background: #cccccc;
+        float: left;
+        text-align: center;
+    }
+    select{
+        background: dodgerblue;
+        color: white;
+        font-weight: bold;
+    }
+    .regist-form input,button,select{
+        width: 90%;
+        height: 35px;
+        font-size: 20px;
+        margin-bottom: 2px;
+    }
+    .content{
+        width: 800px;
+        height: 100%;
+        background: darkgoldenrod;
+        float: left;
+        overflow: scroll;
+    }
+</style>
+<script>
+    var empno,ename,job,mgr,hiredate,sal,comm,deptno;
+    var content;
+
+
+    // EMP테이블을 구성하는 정보를 등록
+    function regist(){
+        // 입력한 값을 member 변수에 담는다.
+        var member = new Array(8);
+        member[0] = empno.value;
+        member[1] = ename.value;
+        member[2] = job.value;
+        member[3] = mgr.value;
+        member[4] = hiredate.value;
+        member[5] = sal.value;
+        member[6] = comm.value; 
+        member[7] = deptno.value;
+
+        emp.push(member);
+
+        // 등록과 동시에 화면에 출력
+        getList();
+    }
+    var emp = new Array();
+    function createDump(){
+        emp = [
+            [7369, "SMITH", "CLERK",7902,"80/12/17",800,"NULL",20],     
+            [7499, "ALLEN","SALESMAN",7698,"81/02/20",1600,300,30],
+            [7521, "WARD","SALESMAN",7698,"81/02/22",1250,500,30],
+            [7566, "JONES","MANAGER",7839,"81/04/02",2975,"NULL",20],
+            [7654, "MARTIN","SALESMAN",7698,"81/09/28",1250,1400,30],
+            [7698, "BLAKE","MANAGER",7839,"81/05/01",2850,"NULL",30],
+            [7782, "CLARK" ,"MANAGER",7839,"81/06/09",2450,"NULL",10],
+            [7788, "SCOTT","ANALYST",7566,"87/04/19",3000,"NULL",20],
+            [7839, "KING","PRESIDENT","NULL","81/11/17",5000,"NULL",10],
+            [7844, "TURNER","SALESMAN",7698,"81/09/08",1500,0,30],
+            [7876, "ADAMS","CLERK",7788,"87/05/23",1100,"NULL",20],
+            [7900, "JAMES","CLERK",7698,"81/12/03",950,"NULL",30],
+            [7902, "FORD","ANALYST",7566,"81/12/03",3000,"NULL",20],
+            [7934, "MILLER","CLERK",7782,"82/01/23",1300,"NULL",10]
+        ];
+    }
+    function getList(){
+        var str="";
+        // 화면에 출력할 테이블 생성 + 내용 삽입
+        str += "<table border='1px' width='100%'>"
+            for(var i=0;i<emp.length;i++){
+                str+="<tr>";
+                    for(var j=0;j<emp[i].length;j++){
+                        str += "<td>"+emp[i][j]+"</td>"
+                    }
+                str+="</tr>";
+            }
+        str += "</table>"
+        content.innerHTML=str;
+    }
+
+
+    function init(){
+        empno = document.getElementById("empno");
+        ename = document.getElementById("ename");
+        job = document.getElementById("job");
+        mgr = document.getElementById("mgr");
+        hiredate = document.getElementById("hiredate");
+        sal = document.getElementById("sal");
+        comm = document.getElementById("comm");
+        deptno = document.getElementById("deptno");
+        content = document.querySelector(".content");
+    }
+
+    window.addEventListener("load",function(){
+        init();
+        createDump();
+        getList();
+    });
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="regist-form">
+            <form onsubmit="event.preventDefault()">
+                <input type="text" id="empno" placeholder="EMPNO">
+                <input type="text" id="ename" placeholder="ENAME">
+                <select id="job">
+                    <option value="0">담당업무</option>
+                    <option value="CLERK">CLERK</option>
+                    <option value="SALESMAN">SALESMAN</option>
+                    <option value="MANAGER">MANAGER</option>
+                    <option value="ANALYST">ANALYST</option>
+                    <option value="PRESIDENT">PRESIDENT</option>
+                </select>
+                <input type="text" id="mgr" placeholder="MGR">
+                <input type="text" id="hiredate" placeholder="HIREDATE">
+                <input type="text" id="sal" placeholder="SAL">
+                <input type="text" id="comm" placeholder="COMM">
+                <select id="deptno">
+                    <option value="0">부서번호</option>
+                    <option value="10">10번부서</option>
+                    <option value="20">20번부서</option>
+                    <option value="30">30번부서</option>
+                    <option value="40">40번부서</option>
+                </select>
+                <button onclick="regist()">사원등록</button>
+            </form>
+        </div>
+        <div class="content"></div>
+    </div>
+</body>
+</html>

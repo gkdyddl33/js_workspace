@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 1200px;
+        height: 700px;
+        background: rgb(241, 241, 8);
+        overflow: hidden;
+    }
+    body{margin: 0px;}
+    #content{
+        width: 1000px;
+        height: 100%;
+        background: url(https://image.freepik.com/free-vector/scene-with-roller-coaster-track-in-the-field_1308-38332.jpg);
+        background-size: 1000px 100%;
+        float: left;
+    }
+    #info{
+        width: 200px;
+        height: 100%;
+        background-color: yellow;
+        float: left;
+    }
+</style>
+<script>
+    var content;
+    var info;
+    var dotArray = new Array();
+    var train;
+    var index = 0;
+
+    function setPoint(){
+        // 좌표찍기
+        var x = event.clientX;
+        var y = event.clientY;
+
+        // 점
+        var dot = document.createElement("div");
+        dot.style.width = 5+"px";
+        dot.style.height = 5+"px";
+        dot.style.background="red";
+        dot.style.position="absolute";
+        dot.style.left=x+"px";
+        dot.style.top=y+"px";
+        content.appendChild(dot);
+
+        // 좌표 누적
+        var point = [x,y];
+        // 위에 point를 담을 배열 생성
+        dotArray.push(point);
+
+        // dotArray에 담겨있는 데이터 출력
+        printInfo();
+    }
+    function printInfo(){
+        var str="";
+
+        for(var i=0;i<dotArray.length;i++){
+            var point = dotArray[i];
+            str += "["+point[0]+","+ point[1]+"]<br/>";           // 위에 [x,y]
+        }
+
+        info.innerHTML=str;
+    }
+
+    function move(){
+        train.style.left=dotArray[index][0]+"px";
+        train.style.top=dotArray[index][1]+"px";
+        if(index<dotArray.length-1){
+            index++;
+        }
+    }
+    function createTrain(){
+        train = document.createElement("img");
+        train.src="https://svgsilh.com/png-1024/154101.png";
+        train.style.width=50+"px";
+        train.style.transform="scaleX(-1)";
+        train.style.position="absolute";
+        content.appendChild(train);
+    }
+    function init(){
+        content = document.getElementById("content");
+        info = document.getElementById("info");
+    }
+    window.addEventListener("load",function(){
+        init();
+        createTrain();
+    });
+
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="content"></div>
+        <div id="info"></div>
+    </div>
+    <button onclick="move()">수동</button>
+    <button onclick="auto()">자동</button>
+</body>
+</html>

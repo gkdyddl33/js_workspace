@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 1000px;
+        height: 600px;
+        margin: auto;
+        background-image: url(https://studioplumeau.com/wp-content/uploads/2017/08/SurfIdent_BG-1024x379.jpg);
+        background-size: 100% 600px;
+        position: relative;
+    }
+</style>
+<script src="./map.js"></script>
+<script>
+    var wrapper;
+
+    function init(){
+        wrapper = document.getElementById("wrapper");
+    }
+    window.addEventListener("load",function(){
+        init();
+        createBlock();
+    });
+
+    // block 생성
+    function createBlock(){
+        for(var i=0;i<map.length;i++){
+            for(var j=0;map[i].length;j++){
+                var block = document.createElement("img");
+                block.src="../images/ball/brick.png";
+                block.style.width=20+"px";
+                block.style.height=20+"px";
+                block.style.position="absolute";
+    
+                block.style.left=(j*20)+"px";
+                block.style.top=(i*20)+"px";
+
+                if(map[i][j]==1){
+                    wrapper.appendChile(block);
+                }
+            }
+        }
+    }
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>
