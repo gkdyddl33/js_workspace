@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>베네치아 타자게임</title>
+<style>
+    .wrapper{
+        width: 1200px;
+        height: 700px;
+        background: yellow;
+        margin: auto;
+        overflow: hidden;
+    }
+    .dash{
+        width: 200px;
+        height: 100%;
+        background: gold;
+        float: left;
+    }
+    #stage{
+        width: 1000px;
+        height: 100%;
+        background: dodgerblue;
+        float: left;
+        position: relative;
+    }
+    #stage span{
+        color: whitesmoke;
+        font-weight: bold;
+        font-size: 16px;
+    }
+</style>
+<script src="../js/lib.js"></script>
+<script>
+    /*
+        타자게임에 등장할 모든 단어 데이터베이스 2차원 배열인 이유는?
+        stage가 여러판이기 ㄸㅐ문
+     */ 
+    var word = [
+    ["쌀","마우스","사과","한국","태평양","눈","태양","야구","볼펜","제주도"],
+    ["홍천","노트","광화문","농구","키보드","오렌지","미국","대서양","비","목성"],
+    ["양수리","보리","축구","소나기","금성","모니터","포도","영국","인도양","태풍"],
+    ["귤","가평","태권도","연습장","3호선","감자","토성","메모리","호주","흑해"],
+    ["배","붓","안양","고구마","펜싱","돌풍","화성","네덜란드","지중해","하드"]
+    ];
+    var stage;
+    var level=0;            // 게이머의 현제 레벨을 표현하는 변수
+                                  // 우리 게임은 0~4레벨까지 5개 있다.
+    var spanArray = [];          // (5) 단어 10개의 span을 모아놓을 배열 = new Array();
+    var stepY = 5;              // (6) 몇걸음씩 아래로 떨어질지 내려올지 결정하는 변수
+
+    var flag = false;           // (7) 단어가 움직일지 여부를 결정짓는 논리값 변수
+                                      // start 버튼 등으로 이 변수를 제어하면 된다.
+
+    // (2) 화면에 등장할 단어를 감쌀 태그 생성
+    function createWord(){
+        // (3) 해당 stage에 등장 할 단어만큼 생성
+        for(var i=0;i<word[level].length;i++){
+            
+            var span = document.createElement("span");
+            // span = inline이므로 너비와높이를 못 정함 컨텐츠 만큼만 늘어남.
+
+            span.innerHTML=word[level][i];      // for문의 i 로 한 행이 나란히 표시됨.
+            span.style.position="absolute";
+            span.style.left=(i*95)+"px";             // 0px로 하면 단어가 뭉쳐버림 -> 떨어트려야함
+            
+            // (4) span의 값을 랜덤값을 해서 내려 오게 만들자
+            span.style.top=150+getRandomBetween(-100,0)+"px";
+            stage.appendChild(span);
+
+            //(5)
+            spanArray.push(span);       // span을 배열에 보관. 왜?  추후 움직일거라서
+        }
+    }
+    // (5) 단어 내려오기 함수
+    function move(){
+        if(flag){
+            // 모든 단어를 대상으로 내려와야 함
+            // 모든 단어 = i
+            for(var i=0;i<spanArray.length;i++){
+                // (6) 등속도 운동 = 내려오기
+                spanArray[i].style.top=parseInt(spanArray[i].style.top)+stepY+"px";
+            }
+        }
+    }
+    // (7) start영역 생성
+    function startGame(){
+        flag = true;
+    }
+
+    // (1) 초기화
+    function init(){
+        stage = document.getElementById("stage");
+    }
+    window.addEventListener("load",function(){
+        init();
+        createWord();
+        move();
+        // (6) 호출 움직이게
+        setInterval("move()",500);
+    });
+</script>
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="dash">
+            <button onclick="startGame()">Start</button>
+            <input type="text" id="word" placeholder="단어를 입력하세요.">
+        </div>
+        <div id="stage"></div>
+    </div>
+
+</body>
+</html>

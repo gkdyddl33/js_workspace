@@ -12,7 +12,7 @@
         랜덤(random) 구하는 함수 . 1
         n을 넣으면 0~n까지까지 포함하여 랜덤한 수를 반환하는 함수
        --------------------------------------------------------*/
-       function getRandom(){
+       function getRandom(n){
             // 1보다 작은 실수 0.0xxx ~ 0.9xxx
             var r = Math.random();
             // floor로 소수점을 버린다.
