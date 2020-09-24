@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 1200px;
+        height: 700px;
+        background: darksalmon;
+        margin: auto;
+        overflow: hidden;
+    }
+    .dash{
+        width: 200px;
+        height: 100%;
+        background: darkseagreen;
+        float: left;
+    }
+    #stage{
+        width: 1000px;
+        height: 100%;
+        background: dodgerblue;
+        float: left;
+        position: relative;
+    }
+    #stage span{
+        color: floralwhite;
+        font-weight: bold;
+        font-size: 16px;
+    }
+</style>
+<script src="../js/lib.js"></script>
+<script>
+    var stage;
+    var level = 0;
+    var spanArray = [];
+    var stepY=5;
+    var flag = false;
+
+    var word = [
+            ["쌀","마우스","사과","한국","태평양","눈","태양","야구","볼펜","제주도"],
+            ["홍천","노트","광화문","농구","키보드","오렌지","미국","대서양","비","목성"],
+            ["양수리","보리","축구","소나기","금성","모니터","포도","영국","인도양","태풍"],
+            ["귤","가평","태권도","연습장","3호선","감자","토성","메모리","호주","흑해"],
+            ["배","붓","안양","고구마","펜싱","돌풍","화성","네덜란드","지중해","하드"]
+    ];
+
+    function createWord(){
+        for(var i=0;i<word[level].length;i++){
+            // 해당 stage에 등장 할 단어만큼 생성
+            var span = document.createElement("span");
+            span.innerHTML=word[level][i];
+            span.style.position="absolute";
+            span.style.left=(i*95)+"px";
+
+             // 게이머의 현제 레벨을 표현하는 변수
+             // 우리 게임은 0~4레벨까지 5개 있다.
+
+            // (4) span의 값을 랜덤값을 해서 내려 오게 만들자
+            span.style.top = 150+getRandomBetween(-100,0)+"px";
+            stage.appendChild(span);
+
+            spanArray.push(span);
+        }
+    }
+    function move(){
+        if(flag){
+            for(var i=0;i<spanArray.length;i++){
+                spanArray[i].style.top=parseInt(spanArray[i].style.top)+stepY+"px";
+            }    
+        }
+    }
+
+    function startGame(){
+        flag = true;
+    }
+    function init(){
+        stage = document.getElementById("stage");
+    }
+    window.addEventListener("load",function(){
+        init();
+        createWord();
+        move();
+        setInterval("move()",500);
+    });
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="dash">
+            <button onclick="startGame()">Start</button>
+            <input type="text" id="word" placeholder="단어를 입력하세요.">
+        </div>
+        <div id="stage"></div>
+    </div>
+</body>
+</html>
