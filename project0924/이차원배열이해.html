@@ -1,0 +1,23 @@
+<script>
+    /* 방법1
+        new 연산자로 선언 후 각 요소를 index 명시하여 구성하는 법 */
+    var box = new Array();
+
+    var animal = ["호랑이","사자","말"];
+    var flower = ["장마","튤립","백합"];
+    var it = ["java","oracle","spring"];
+
+    box.push(animal);       // box[0]
+    box.push(flower);       // box[1]
+    box.push(it);             // box[2]
+
+    document.write("<table border='1px' width='300px'>");
+    for(var i=0;i<box.length;i++){
+        document.write("<tr>");
+        for(var j=0;j<box[i].length;j++){
+            document.write("<td>"+box[i][j]+"</td>");
+        }
+        document.write("</tr>");
+    }
+    document.write("</table>");
+</script>
