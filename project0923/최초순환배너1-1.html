@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    body{
+        background: black;
+    }
+    #wrapper{
+        width: 400px;
+        height: 75px;
+        background-color: whitesmoke;
+        margin: auto;
+        position: relative;
+        overflow: hidden;
+    }
+</style>
+<script>
+    var img;
+    var arr = new Array(5);
+
+    window.addEventListener("load",function(){
+        init();
+    });
+
+    function init(){
+        for(var i=0;i<5;i++){
+            img = document.createElement("img");
+            arr[i]=img;
+            img.src="../images/travel/"+(i+1)+".jpg";
+            img.style.width=100+"px";
+            img.style.height=75+"px";
+            img.style.position="absolute";
+            img.style.left=(i*100)+"px";
+
+            img.style.border="5px solid red";
+            img.style.boxSizing="border-box";
+
+            img.style.color="orange";
+
+            var wrapper = document.getElementById("wrapper");
+            wrapper.appendChild(img);
+        }
+    }
+
+    function move(){
+        for(var i=0;i<arr.left;i++){
+            arr[i].style.left=parseInt(arr[i].style.left)-1+"px";
+            arr[i].innerText=arr[i].style.left;
+            // 맨뒤로 이동
+            if(parseInt(arr[i].style.left)<=-100){
+                arr[i].style.left=400+"px";
+            }
+        }
+    }
+
+    function auto(){
+        setInterval("move()",10);
+    }
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>
+        <button onclick="move()">수동움직임</button>
+        <button onclick="auto()">자동움직임</button>
+    
+</body>
+</html>

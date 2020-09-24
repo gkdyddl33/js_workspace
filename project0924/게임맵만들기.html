@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+  #wrapper{
+    width:1000px;
+    height:600px;
+    margin:auto;
+    background-image: url(https://studioplumeau.com/wp-content/uploads/2017/08/SurfIdent_BG-1024x379.jpg);    
+    background-size:100% 600px;
+    position: relative;
+}    
+</style>
+<script src="./map.js"></script>
+<script>
+    /* 게임제작시 복잡한 맵을 구현하는 노하우 배워보자 */
+    var wrapper;
+
+    
+
+    function init(){
+        wrapper = document.getElementById("wrapper");
+    }
+    window.addEventListener("load",function(){
+        init();
+        createBlock();
+    });
+
+    // (1) 블락을 생성한다.
+    function createBlock(){
+        for(var i=0;i<map.length;i++){
+            for(var j=0;j<map[i].length;j++){
+                var block = document.createElement("img");
+                block.src="../images/ball/brick.png";
+                block.style.width=20+"px";
+                block.style.height=20+"px";
+                block.style.position="absolute";
+
+                block.style.left=(j*20)+"px";      // 안쪽 배열이 결정
+                block.style.top=(i*20)+"px";        // 바깥쪽 배열이 결정
+
+                if(map[i][j]==1){//map[층][호]==1
+                    // 무조건 블럭을 붙이지 말고 1일때만..
+                    wrapper.appendChild(block);
+                }
+            }
+        }
+    }
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>    
+</body>
+</html>
