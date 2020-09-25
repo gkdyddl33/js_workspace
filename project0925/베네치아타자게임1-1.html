@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 1200px;
+        height: 700px;
+        background: darksalmon;
+        margin: auto;
+        overflow: hidden;
+    }
+    .dash{
+        width: 200px;
+        height: 100%;
+        background: darkseagreen;
+        float: left;
+        text-align: center;
+    }
+    .dash button,select,input{
+        width: 90%;
+        height: 40px;
+        text-align: center;
+        margin-bottom: 4px;
+        font-size: 24px;
+    }
+    #hpBox{
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        margin-top: 50px;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+    #scoreBox{
+        width: 100%;
+        height: 100px;
+        font-size: 50px;
+        font-weight: bold;
+        text-align: center;
+    }
+    #stage{
+        width: 1000px;
+        height: 100%;
+        background: dodgerblue;
+        float: left;
+        position: relative;
+    }
+    #stage span{
+        color: floralwhite;
+        font-weight: bold;
+        font-size: 16px;
+    }
+</style>
+<script src="../js/lib.js"></script>
+<script>
+    var stage;
+    var level = 0;
+    var spanArray = [];
+    var stepY=5;
+    var flag = false;
+    var scoreBox;
+    var keyword;
+    var score=0;
+    var word = [
+            ["쌀","마우스","사과","한국","태평양","눈","태양","야구","볼펜","제주도"],
+            ["홍천","노트","광화문","농구","키보드","오렌지","미국","대서양","비","목성"],
+            ["양수리","보리","축구","소나기","금성","모니터","포도","영국","인도양","태풍"],
+            ["귤","가평","태권도","연습장","3호선","감자","토성","메모리","호주","흑해"],
+            ["배","붓","안양","고구마","펜싱","돌풍","화성","네덜란드","지중해","하드"]
+    ];
+
+    function createWord(){
+        for(var i=0;i<word[level].length;i++){
+            // 해당 stage에 등장 할 단어만큼 생성
+            var span = document.createElement("span");
+            span.innerHTML=word[level][i];
+            span.style.position="absolute";
+            span.style.left=(i*95)+"px";
+
+             // 게이머의 현제 레벨을 표현하는 변수
+             // 우리 게임은 0~4레벨까지 5개 있다.
+
+            // (4) span의 값을 랜덤값을 해서 내려 오게 만들자
+            span.style.top = 150+getRandomBetween(-100,0)+"px";
+            stage.appendChild(span);
+
+            spanArray.push(span);
+        }
+    }
+    function move(){
+        if(flag){
+            for(var i=0;i<spanArray.length;i++){
+                spanArray[i].style.top=parseInt(spanArray[i].style.top)+stepY+"px";
+            }    
+        }
+    }
+    // select 박스 안에 option을 생성
+    function createLevelOption(){
+        for(var i=0;i<word.length;i++){
+            var op = document.createElement("option");
+            op.text="레벨"+(i+1);
+            op.value=i;
+            sel.add(op);
+        }
+    }
+    // 뒤에서 부터 한칸 씩 줄여 나가기 hp
+    function createHp(){
+        for(var i=0;i<9;i++){
+            var hp = document.createElement("div");
+            hp.style.width=60+"px";
+            hp.style.height=60+"px";
+            hp.style.background="red";
+            hp.style.float="left";
+            hp.style.border="2px solid yellow";
+            hpBox.appendChild(hp);
+        }
+    }
+    // 점수주기
+    function printScore(){
+        scoreBox.innerHTML=score+"점";
+    }
+
+    function startGame(){
+        flag = true;
+    }
+    function init(){
+        stage = document.getElementById("stage");
+        sel = document.getElementById("sel");
+        hpBox = document.getElementById("hpBox");
+        scoreBox = document.getElementById("scoreBox");
+
+        // START를 누르면 커서가 딱 올라가게 생성
+        keyword = document.getElementById("keyword");
+        keyword.addEventListener("keyup",function(e){
+            if(e.keyCode==13){
+                // 입력텍스트와 베열안의 텍스트는 계속 비교를 해야하며 = 반복문
+                for(var i=0;i<word[level].length;i++){
+                    if(keyword.value==word[level][i]){
+                        // 계속 반복으로 문자를 비교하면서 텍스트박스안에 값이 일치하는지
+                        // 조건을 따져봐야한다.
+                        // 조건이 맞으면 색깔이 변하게 해보자 = 제거를 해보자.
+                        stage.removeChild(spanArray[i]);
+// 여기서 과제!
+// 배열을 제거하는 단계를 혼자 해결해보자.
+                        score +=10;
+                        printScore();
+                    }
+                    keyword.value="";
+                }
+            }
+        });
+    }
+    window.addEventListener("load",function(){
+        init();
+        createWord();
+        createLevelOption();
+        createHp();
+        printScore();
+        // move();
+        setInterval("move()",500);
+    });
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="dash">
+            <button onclick="startGame()">Start</button>
+            <select id="sel"></select>
+            <input type="text" id="keyword" placeholder="단어를 입력하세요.">
+            <div id="hpBox"></div>
+            <div id="scoreBox">0점</div>
+            <div id="itemBox">아이템 이미지</div>
+        </div>
+        <div id="stage"></div>
+    </div>
+</body>
+</html>

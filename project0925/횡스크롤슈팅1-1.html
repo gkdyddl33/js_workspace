@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    body{margin: 0px;}
+    #wrapper{
+        width: 100%;
+        height: 640px;
+        background-image: url(../images/shooting/bg.jpg);
+    }
+</style>
+<script src="./Hero1-1.js"></script>
+<script src="./Enemy1-1.js"></script>
+<script>
+    var wrapper;
+    var count=0;
+    var hero;
+    var bgX=0; 
+
+    var enemySrc=[
+        "../images/shooting/e1.png",
+        "../images/shooting/e2.png",
+        "../images/shooting/e3.png",
+        "../images/shooting/e4.png",
+        "../images/shooting/e5.png"
+    ];
+
+    // (1) 모든 객체들을 대상으로 함수 호출 시도할 엔진 루프
+    function gameLoop(){
+        count++;
+        // console.log("count : ",count);
+        moveBg();
+    }
+
+    // (2) 주인공 등장시키는 함수
+    function createHero(){
+        // hero.js = hero의 생성자를 만듬
+        // 생성된 객체 사용
+        hero = new Hero(wrapper,150,250,100,65);
+    }
+
+    // (3) 배경 움직임 처리
+    function moveBg(){
+        bgX -=2;
+        wrapper.style.backgroundPosition=bgX+"px 0px";
+    }
+
+    // (4) 적군 등장시키는 함수
+    function createEnemy(){
+        for(var i=0;i<enemySrc.length;i++){
+            new Enemy(wrapper,70,50,screen.width-150,100+i*70,enemySrc[i]);            
+        }
+    }
+    function init(){
+        wrapper = document.getElementById("wrapper");
+    }
+    window.addEventListener("load",function(){
+        init();
+        // 게임 루프 가동 시작!!
+        setInterval("gameLoop()",1);
+        createHero();
+        createEnemy();
+        moveBg();
+    });
+</script>
+</head>
+<body>
+    <div id="wrapper"></div> 
+</body>
+</html>
