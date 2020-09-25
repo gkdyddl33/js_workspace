@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+
+<script>
+    var arrow;    
+    var stepX=10;
+
+    // (1) 화살표 생성
+    function createArrow(){
+        arrow = document.createElement("span");
+        arrow.innerText="→";
+        arrow.style.position="absolute";
+        arrow.style.left=50+"px";
+        arrow.style.top=100+"px";
+        arrow.style.color="red";
+        arrow.style.fontSize="30px";
+
+        document.body.appendChild(arrow);
+    }
+    // (2) 화살표 날리기
+    function move(){
+        arrow.style.left=parseInt(arrow.style.left)+stepX+"px";
+    }
+    function init(){
+        createArrow();       
+    }
+
+    window.addEventListener("load",function(){
+        init();
+        setInterval("move()",50);
+    });
+</script>
+</head>
+<body>
+<!-- 
+    문서가 로드되면 다음의 조건을 만족시키시오.
+    1) 화살이 날아가야 한다.
+    2) 각각의 화살이 서로 다른 색상
+    3) 각각의 화살이 서로 다른 속도
+ -->    
+</body>
+</html>

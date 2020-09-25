@@ -18,21 +18,22 @@ class Arrow{
 
     // ES 2015년에 발표된 JS에 의해서, 클래스가 소유한 변수는
     // constructor() 라는 함수에 넣어둬야 한다.
-    constructor(){
-        this.arrow;
-        this.stepX=10;
-    }
-
+    // constructor(){
+        
+    // }
+    
     // 클래스 안에 선언된,
     // 즉, 클래스가 보유한 함수는 해당 사물의 동작방법을 결정짓는다 하여
     // method() 라 한다 =  방법
-    createArrow(){
+    constructor(x,y){ // createArrow
+        this.arrow;
+        this.stepX=10;
         // this.createArrow=function
         this.arrow = document.createElement("span");
         this.arrow.innerText="→";
         this.arrow.style.position="absolute";
-        this.arrow.style.left=50+"px";
-        this.arrow.style.top=100+"px";
+        this.arrow.style.left=x+"px";
+        this.arrow.style.top=y+"px";
         this.arrow.style.color="red";
         this.arrow.style.fontSize="30px";
 
