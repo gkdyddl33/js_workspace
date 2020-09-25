@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 1200px;
+        height: 700px;
+        background: coral;
+        overflow: hidden;
+    }
+    #content{
+        width: 1000px;
+        height: 100%;
+        background-image: url(https://image.freepik.com/free-vector/scene-with-roller-coaster-track-in-the-field_1308-38332.jpg);
+        background-size: 1000px 100%;
+        float: left;
+    }
+    #info{
+        width: 200px;
+        height: 100%;
+        background-color: darkcyan;
+        float: left;
+    }
+    body{
+        margin: 0px;
+    }
+</style>
+<script>
+    var content;
+    var info;
+    var dotArray = [];
+    var train;
+    var index=0;
+
+    function setPoint(){
+        var x = event.clientX;
+        var y = event.clientY;
+
+        // 점 모양
+        var dot = document.createElement("div");
+        dot.style.width=5+"px";
+        dot.style.height=5+"px";
+        dot.style.background="red";
+        dot.style.position="absolute";
+        // 점 좌표 얻어와서 위치 이동 
+        dot.style.left=x+"px";
+        dot.style.top=y+"px";
+
+        content.appendChild(dot);
+
+        var point = [x,y];
+        dotArray.push(point);
+
+        // 누적된 dotArray를 우측 정보창에 출력하자
+        printInfo();
+    }
+    function printInfo(){
+        var str="";
+        for(var i=0;i<dotArray.length;i++){
+            var point = dotArray[i];
+            str += "["+point[0]+","+point[1]+"]<br/>";
+        }
+        info.innerHTML=str;
+    }
+
+    function createTrain(){
+        train = document.createElement("img");
+        train.src="https://svgsilh.com/png-1024/154101.png";
+        train.style.width=50+"px";
+        train.style.transform="scaleX(-1)";
+        trian.style.position="absolute";
+        content.appendChild(train);
+    }
+    function move(){
+        // 누적 되있는 이차원 배열에 하나씩 "접근" = [x,y] = [0,1]
+        train.style.left=dotArray[index][0]+"px";
+        train.style.top=dotArray[index][1]+"px";
+        if(index<dotArray.length-1){
+            // 내가 찍은 위치에 +1씩 접근 증가하면서
+            index++;
+        }
+    }
+    function init(){
+        content = document.getElementById("content");
+        info = document.getElementById("info");
+    }
+    window.addEventListener("load",function(){
+        init();
+        createTrain();
+    });
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="content" onclick="setPoint()"></div>
+        <div id="info"></div>
+    </div>
+    <button onclick="move()">수동</button>
+    <button onclick="auto()">자동</button>
+</body>
+</html>
