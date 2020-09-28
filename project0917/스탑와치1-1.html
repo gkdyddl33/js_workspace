@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+    width: 70%;
+    height: 200px;
+    border: 10px solid red;
+    margin: auto;
+}
+input[type='text']{
+    width: 20%;
+    height: 100px;
+    font-size: 80px;
+    text-align: right;
+}
+button{
+    width: 15%;
+    height: 40px;
+    border: 0px;
+    color: red;
+    font-weight: bold;
+    background: chartreuse;
+}
+</style>
+<script>
+    var sec;
+    var min;
+    var hour;
+    var bt_start;
+    var bt_pause;
+    var bt_reset;
+
+    var st;
+    var flag = true;
+
+    function init(){
+        hour = document.getElementById("hour");
+        min = document.getElementById("min");
+        sec = document.getElementById("sec");
+
+        hour.value=hh;
+        min.value=mm;
+        sec.value=ss;
+
+        bt_start = document.getElementById("bt_start");
+        bt_pause = document.getElementById("bt_pause");
+        bt_reset = document.getElementById("bt_reset");
+
+        bt_start.addEventListener("click",function(){
+            auto();
+        });
+        bt_pause.addEventListener("click",function(){
+            flag = !flag;
+            if(flag==false){
+                this.innerText="▶";
+
+            }else{
+                this.innerText="pause";
+            }
+        });
+        bt_reset.addEventListener("click",function(){
+            clearTimeout(st);
+            ss=0;
+            mm=0;
+            hh=0;
+
+            hour.value=hh;
+            min.value=mm;
+            sec.value=ss;
+            flag=true;
+        });
+    }
+    window.addEventListener("load",function(){
+        init();
+    });
+
+    function timer(){
+        if(flag){
+            ss++;
+            if(ss>=60){
+                mm++;
+                ss=0;
+            }
+            if(mm>=60){
+                hh++;
+                mm=0;
+            }
+            hour.value=hh;
+            min.value=mm;
+            sec.value=ss;
+        }
+    }
+    function auto(){
+        st = setInterval("timer()",50);
+    }
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <input type="text" id="hour">시간
+        <input type="text" id="min">분
+        <input type="text" id="sec">초
+        <button id="bt_start">시작</button>
+        <button id="bt_pause">Pause</button>
+        <button id="bt_reset">Reset</button>
+    </div>
+</body>
+</html>

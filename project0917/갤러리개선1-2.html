@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+     .wrapper{
+        width: 700px;
+        height: 600px;
+        float: left;
+        margin: auto;        
+        border: 5px solid black;
+    }
+    .thumb{
+        width: 150px;
+        height: 100%;        
+        float: left;
+        overflow: scroll;
+    }
+    .thumb img{
+        width: 120px;
+    }
+    .detail{
+        width: 550px;
+        height: 100%;        
+        float: left;
+    }
+    .detail img{
+        width: 450px;
+        padding: 50px;
+    }
+</style>
+<script>
+    var detailImg;
+
+    // 작은 이미지
+    function createThumb(){
+        for(var i=1;i<=10;i++){
+            var thumbImage = document.createElement("img");
+            thumbImage.src="../images/travel/"+i+".jpg";
+
+            var thumbDiv = document.querySelector(".thumb");
+            thumbDiv.appendChild(thumbImage);
+            
+            thumbImage.addEventListener("click",function(){
+                detailImg.src=this.src;
+            });
+        }
+    }
+    // 큰 이미지
+    function createDetail(){
+        detailImg = document.createElement("img");
+        detailImg.scr="../images/travel/1.jpg";
+
+        var detail = document.getElementById(".detail");
+        detail.appendChild(detailImg);
+    }
+window.addEventListener("load",function(){
+    createThumb();
+    createDetail();
+});
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="thumb"></div>
+        <div class="detail"></div>
+    </div>
+</body>
+</html>
