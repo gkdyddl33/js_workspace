@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    input{
+        width: 100px;
+        height: 70px;
+        font-size: 20px;
+    }
+</style>
+<script src="../js/lib.js"></script>
+<script>
+    var yy;
+    var mm;
+    var dd;
+    var  h;
+
+    function init(){
+        yy = document.getElementById("yy");
+        mm = document.getElementById("mm");
+        dd = document.getElementById("dd");        
+    }
+
+    function addZero(){
+        // 입력한 숫자 앞에 0을 추가하자(결국 문자로 간주. 그래야 0이 붙음)
+        // var month = parseInt(mm.value);
+        // var date = parseInt(dd.value);
+
+        // if(month>=10){
+        //     alert("두 자리수를 입력했군요.");
+        // }else{
+        //     alert("한 자리수를 입력했군요.");
+        //     month = "0"+month;
+        // }
+        // if(date<10){
+        //     date = "0"+date;
+        // }
+
+        h = document.querySelector("h1");
+        h.innerText=yy.value+"년"+getZeroDate(parseInt(mm.value))+"월"+getZeroDate(parseInt(dd.value))+"일";
+    }
+
+    function removeZero(){
+        // "문자열"을 제거.
+        h = document.querySelector("h1");
+        h.innerText=parseInt(yy.value)+"년"+parseInt(mm.value)+"월"+parseInt(dd.value)+"일";
+    }
+</script>
+</head>
+<body onload="init()">
+
+    <input type="text" id="yy">년
+    <input type="text" id="mm">월
+    <input type="text" id="dd">일
+
+    <button onclick="addZero()">0 접두어추가</button>
+    <button onclick="removeZero()">0 접두어제거</button>
+    <h1>검증 및 데이터 나올 곳</h1>
+
+</body>
+</html>

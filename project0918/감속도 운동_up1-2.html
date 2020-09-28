@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+     .wrapper{
+        width: 100%;
+        height: 700px;
+        background: yellow;
+    }
+    body{
+        margin: 0px;
+    }
+    #box{
+        width: 40px;
+        height: 40px;
+        background: red;
+    }
+</style>
+<script>
+    var box;
+    let a=0.1;
+    var targetX=800;
+    var targetY=600;
+    var deg=0;
+
+    function init(){
+        box = document.getElementById("box");
+        box.style.position="absolute";
+        box.style.left=0+"px";
+        box.style.top = 100+"px";
+    }
+
+    function move(){
+        // 감속도 운동
+        box.style.left = parseInt(box.style.left)+a*(targetX-parseInt(box.style.left))+"px";
+        box.style.top = parseInt(box.style.top)+a*(targetY-parseInt(box.style.top))+"px";
+
+        deg += 5;
+        box.style.transform = "rotate("+deg+"deg)";
+    }
+
+    function getPos(){
+        // 좌표선정
+        var x = event.clientX;
+        var y = event.clientY;
+
+        targetX=x;          // 좌표를 찾고 대입을 한 이유? 목표지점 = 움직이게 하기 위해
+        targetY=y;
+    }
+
+    function auto(){
+        setInterval("move()",10);
+    }
+</script>
+</head>
+<body onload="init();auto()" onclick="getPos()">
+    <div class="wrapper">
+        <button onclick="move()">수동</button>
+        <div id="box"></div>
+    </div>
+</body>
+</html>
