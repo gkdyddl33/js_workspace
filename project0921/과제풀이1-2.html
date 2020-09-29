@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+
+    var tx,ty;
+    var box;
+    var targetX=0;
+    var targetY=0;
+    let a=0.1;
+
+    function init(){
+        tx = document.getElementById("tx");
+        ty = document.getElementById("ty");
+        box = document.getElementById("box");
+
+        box.style.position="absolute";
+        box.style.left=0+"px";
+        box.style.top=200+"px";
+        box.style.background="yellow";
+        box.style.border = "2px solid red";
+        box.style.width=100+"px";
+        box.style.height=100+"px";
+        box.style.boxSizing="border-box";
+
+        document.body.appendChild(box);
+
+        var bt = document.querySelector("button");
+        bt.addEventListener("click",function(){
+            setTarget();
+        });
+    }
+    function setTarget(){
+        // 목표지점
+        targetX = parseFloat(tx.value);
+        targetY = parseFloat(ty.value);
+    }
+
+    function move(){
+        box.style.left = parseFloat(box.style.left) + a*(targetX-parseFloat(box.style.left))+"px";
+        box.style.top = parseFloat(box.style.top) + a*(targetX-parseFloat(box.style.top))+"px";
+        box.innerText="x:"+parseFloat(box.style.left)+"\ny:"+parseFloat(box.style.top);
+    }
+
+    window.addEventListener("load",function(){
+        init();
+        setInterval("move()",100);
+    });
+</script>
+</head>
+<body>
+    <input type="text" id="tx" placeholder="목표 x좌표">
+    <input type="text" id="ty" placeholder="목표 y좌표">
+    <button>이동</button>
+    <div id="box"></div>
+</body>
+</html>
