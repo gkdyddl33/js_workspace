@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+        width: 700px;
+        height: 600px;
+        border: 2px solid red;
+        margin: auto;
+        position: relative;
+        
+    }
+</style>
+<script src="../js/lib.js"></script>
+<script>
+    var wrapper;
+    var bar;
+
+    // (1) 막대 생성
+    var barArray = new Array();
+    var colorArray=["red","orange","yellow","green","blue","navy","purple"];
+    var barWidth = 65;
+    var targetH =[20,20,20,20,20,20,20];
+    var index=0;
+    var a =0.1;
+    
+    function createBar(){
+        for(var i=0;i<7;i++){
+            bar = document.createElement("div");
+            bar.style.position="absolute";
+            bar.style.left=(barWidth*i)+"px";
+            bar.style.top=0+"px";
+            bar.style.width=barWidth+"px";
+            bar.style.height=20+"px";
+            bar.style.borderRadius="4px";
+            bar.style.background=colorArray[i];
+
+            bar.id=i;
+            bar.addEventListener("mouseover",function(){
+                targetH[index]=500;
+                index=this.id;
+            });
+            bar.addEventListener("mouseout",function(){
+                targetH[index]=20;
+                index=this.id;
+            });
+
+            wrapper.appendChild(bar);
+            barArray.push(bar);
+        }
+    }
+
+    // (2) 막대크기변경
+    function move(){        
+        barArray[index].style.height=parseFloat(barArray[index].style.height)+a*(targetH-parseFloat(barArray[index].style.height))+"px";
+        barArray[index].innerText=parseFloat(barArray[index].style.height);
+    }
+
+    function init(){
+        wrapper = document.getElementById("wrapper");
+        createBar();
+        setInterval("move()",10);
+    }
+
+    window.addEventListener("load",function(){
+        init();        
+    });
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #wrapper{
+      width:1000px;
+      height:600px;
+      margin:auto;
+      background-image: url(https://studioplumeau.com/wp-content/uploads/2017/08/SurfIdent_BG-1024x379.jpg);    
+      background-size:100% 600px;
+      position: relative;
+  }    
+  </style>
+  <script src="./map.js"></script>
+  <script>
+    var wrapper;
+
+    function createBlock(){
+        for(var j=0;j<map.length;j++){
+            for(var i=0;i<map[j].length;i++){
+                var block = document.createElement("img");
+                block.src="../images/ball/brick.png";
+                block.style.width=20+"px";
+                block.style.height=20+"px";
+                block.style.position="absolute";
+
+                block.style.left=(i*20)+"px";
+                block.style.top=(j*20)+"px";
+
+                if(map[j][i]==1){
+                    wrapper.appendChild(block);
+                }
+            }
+        }
+    }
+
+    function init(){
+        wrapper = document.getElementById("wrapper");
+    }
+
+      window.addEventListener("load",function(){
+        init();
+        createBlock();
+      });
+  </script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>
