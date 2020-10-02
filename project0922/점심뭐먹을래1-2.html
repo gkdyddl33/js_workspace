@@ -6,7 +6,6 @@
 <title>Document</title>
 <script src="../js/lib.js"></script>
 <script>
-
     // 점심메뉴
     var food = new Array();
     food[0] = "짜장면";
@@ -15,19 +14,14 @@
     food[3] = "짬뽕";
     food[4] = "떡볶이";
     food[5] = "돈까스";
-    
-    // (1) button
+
     window.addEventListener("load",function(){
         var bt = document.querySelector("button");
-
-        bt.addEventListener("click",function(){
-            // h1 메뉴를 출력
-            var h1 = document.querySelector("h1");
-            // 랜덤하게 = 우리가 만든 함수로 = getRandom()
-            h1.innerText=food[getRandom(food.length-1)];    // 0~5까지 길이
-        });        
+            bt.addEventListener("click",function(){
+                var h1 = document.querySelector("h1");
+                h1.innerText=food[getRandom(food.length-1)];
+            })  
     });
-
 </script>
 </head>
 <body>
