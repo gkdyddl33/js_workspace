@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<!-- 
+    문서가 로드되면 다음의 조건을 만족시키시오.
+    1) 화살이 날아가야 한다.
+    2) 각각의 화살이 서로 다른 색상
+    3) 각각의 화살이 서로 다른 속도
+ -->   
+ <script src="./Arrow2.js"></script>
+ <script>
+     var arr = new Array(5);
+
+     function init(){
+         // 여러개 화살생성
+         for(var i=0;i<arr.length;i++){
+             // 클래스를 사용 할 수있게 객체 =  인스턴스 변수 생성
+             var arrow = new Arrow(100,i*70);
+             arr[i] = arrow;
+         }
+
+         // 각각의 화살이 서로 다른 색상과 속도를 가지게 하기
+
+         // 화살 자동움직임
+         setInterval(function(){
+             for(var i=0;i<arr.length;i++){
+                 arr[i].move();
+             }
+         },10);
+     }
+     window.addEventListener("load",function(){
+        init();
+     });
+ </script>
+</head>
+<body>
+
+</body>
+</html>

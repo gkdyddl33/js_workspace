@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    body{margin: 0px;}
+    #wrapper{
+        width: 100%;
+        height: 700px;
+        background-image: url(../images/shooting/bg.png);
+        overflow: hidden;
+        position: relative;
+    }    
+</style>
+<script src="./Hero1-1.js"></script>
+<script src="./Bullet1-1.js"></script>
+<script src="./Enemy1-1.js"></script>
+<script>
+    var wrapper;
+    var bgY = 0;
+    var hero;
+    var bullet;
+    var bulletArray = new Array();
+    var bombArray = new Array();
+    var enemyArray = new Array();
+    var enemyImg = ["e1.png","e2.png","e3.png","e4.png","e5.png"];
+
+    // 배경화면 움직이기
+    function bgEffect(){
+        // y축으로 움직인다.
+        bgY++;
+        wrapper.style.backgroundPosition="0px "+bgY+"px";
+    }
+
+    // 사운드 효과
+    function bgSound(){
+        var bgAudio = document.createElement("audio");
+        bgAudio.src="../images/shooting/bgmm.mp3";
+        bgAudio.loop="yes";     // 끝없이 루프로 실행
+        bgAudio.play();
+    }
+
+    // 히어로 등장
+    function createHero(){
+        hero = new Hero((screen.width/2)-40,550,80,65,0,0);
+    }
+
+    // 총알생성
+    function createBullet(){
+        bullet = new Bullet("../images/shooting/ball.png",hero.x+(hero.width/2)-12,hero.y,25,25,0,-10);
+
+        var audio = document.createElement("audio");
+        audio.src="../images/shooting/fire.wav";
+        audio.play();
+
+        bulletArray.push(bullet);
+    }
+    // 핵폭탄 생성 = 총알생성 클래스를 같이 공유 -> 인스턴스변수만 다르게해사 재사용
+    function createBomb(){
+        var bomb = new Bullet("../images/shooting/missile.png",hero.x+(hero.width/2)-40,hero.y,80,120,0,-4);
+        bombArray.push(bomb);
+
+        var audio = document.createElement("audio");
+        audio.src="../images/shooting/bomb.wav";
+        audio.play();
+    }
+
+    // 적군생성
+    function crateEnemy(){
+        for(var j=0;j<2;j++){
+            for(var i=0;i<20;i++){
+                var enemy1 = new Enemy("../images/shooting/"+enemyImg[j],100+(i*90),50,75,65,0,0);
+                var enemy2 = new Enemy("../images/shooting/"+enemyImg[j],100+(i*90),50+(j*70),75,65,0,0);
+                var enemy3 = new Enemy("../images/shooting/"+enemyImg[j],100+(i*90),50+(j*70),75,65,0,0);
+                var enemy4 = new Enemy("../images/shooting/"+enemyImg[j],100+(i*90),50+(j*70),75,65,0,0);
+                var enemy5 = new Enemy("../images/shooting/"+enemyImg[j],100+(i*90),50+(j*70),75,65,0,0);
+                
+                enemyArray.push(enemy1);
+                enemyArray.push(enemy2);
+                enemyArray.push(enemy3);
+                enemyArray.push(enemy4);
+                enemyArray.push(enemy5);
+            }
+        }
+    }
+
+    function gameLoop(){
+        // 히어로 움직이기
+        hero.tick();
+        hero.render();
+        // 총알생성? 그럼 발사
+        for(var i=0;i<bulletArray.length;i++){
+            bulletArray[i].tick();
+            bulletArray[i].render();
+        }
+        // 핵폭단? 추가 발사
+        for(var i=0;i<bombArray.length;i++){
+            bombArray[i].tick();
+            bombArray[i].render();
+        }
+        // 적군생성? 적군 접근
+        for(var i=0;i<enemyArray.length;i++){
+            enemyArray[i].tick();
+            enemyArray[i].tender();
+        }
+        bgEffect();
+    }
+
+    window.addEventListener("load",function(){
+        wrapper = document.getElementById("wrapper");
+        // 히어로 움직이기
+        document.body.addEventListener("keydown",function(e){
+            var key = e.keyCode;
+            // alert(key);
+            switch(key){
+                case 37 : hero.velX=-5;break;
+                case 39 : hero.velX=+5;break;
+                case 38 : hero.velY=-5;break;
+                case 40 : hero.velY=+5;break;
+                case 32 : createBullet();break;
+                case 66 : createBomb();break;
+            }
+        });
+        document.body.addEventListener("keyup",function(e){
+            var key = e.keyCode;
+            switch(key){
+                case 37 : hero.velX=0;break;
+                case 39 : hero.velX=0;break;
+                case 38 : hero.velY=0;break;
+                case 40 : hero.velY=0;break;
+            }
+        });
+
+        bgSound();
+        createHero();  
+        crateEnemy();      
+        setInterval("gameLoop()",1);
+    });
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

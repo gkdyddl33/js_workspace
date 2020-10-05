@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    body{margin: 0px;}
+    #wrapper{
+        width: 100%;
+        height: 800px;
+        background: yellow;
+    }
+</style>
+<script src="./Box1-1.js"></script>
+<script src="../js/lib.js"></script>
+<script>
+    var b1,b2;
+
+    // 마우스 좌표
+    function getPos(){
+        var x = event.clientX;
+        var y = event.clientY;
+        drag(x,y);
+    }
+    // 마우스 좌표를 생성 후 drag() 함수에 매개변수를 받아 그 좌표대로 움직이게 하기
+    function drag(x,y){
+        b1.x=x;
+        b1.y=y;
+
+        // 박스 1의 좌표를 마우스의 좌표와 일치시키자.
+        b1.div.style.left=b1.x+"px";
+        b1.div.style.top=b1.y+"px";
+
+        // 일치됬다면? 좌표 출력
+        b1.div.innerText="x:"+b1.x+",\ny:"+b1.y;
+        b2.div.innerText="x:"+b2.x+",\ny:"+b2.y;
+
+        // 충돌판단
+        var result = collisionCheck(b1.div,b2.div);
+        if(result){
+            b1.div.style.background="seagreen";
+        }else{
+            b1.div.style.background="red";
+        }
+    }
+
+    function init(){
+        b1 = new Box("red",100,200);
+        b2 = new Box("dodgerblue",500,200);
+    }
+    window.addEventListener("load",function(){
+        init();
+    });
+</script>
+</head>
+<body onmousemove="getPos()">
+    <div id="wrapper"></div>
+</body>
+</html>
