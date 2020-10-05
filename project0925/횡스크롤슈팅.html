@@ -28,7 +28,7 @@
    var count = 0;
    var wrapper;
    var hero;                // 주인공을 가리키는 변수
-   var bullet;
+   var bullet;          
 
     var bgX=0;         // 배경의 움직임 속도를 결정짓는 변수
                               // 좌측으로 움직여야 하므로..
@@ -73,11 +73,14 @@
             new Enemy(wrapper,70,50,screen.width-150,100+i*70,enemySrc[i]); // container,width,height,x,y,src)       
         }
    }
-   // (5) 총알 생성
+   // (5) 총알 생성   
+
    function createcBullet(){
-       // 현재주인공의x,현재주인공의y) = 인스턴스화 시키고 있기 때문에 가능
-        bullet = new Bullet(wrapper,hero.x,hero.y);
+       // 현재주인공의x,현재주인공의y) = 인스턴스화 시키고 있기 때문에 가능  
+       bullet = new Bullet(wrapper,hero.x,hero.y);                   
+        
    }
+
    function init(){
        wrapper = document.getElementById("wrapper");
        // interval에 지정한 시간은 게임의 실행속도를 좌우한다.
@@ -90,10 +93,11 @@
     // (5-1) 키보드 이벤트 구현하기
     document.body.addEventListener("keydown",function(e){
         // alert(e.keycode);
-        if(e.keyCode==32){
-            // 총알 생성 함수 호출
-            createcBullet();
-        }
+      
+            if(e.keyCode==32){
+                // 총알 생성 함수 호출
+                createcBullet();
+            }        
     });
    }
     window.addEventListener("load",function(){

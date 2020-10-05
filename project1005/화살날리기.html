@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>화살날리기</title>
+<!-- 아래 코드는 절차지향언어를 사용한 C언어에서 주로 사용하는 변수와 함수 코드이다.
+
+    현실의 화살을 표현하기 위해, 변수와 함수를 조합하면 충분히 수행이 가능함..
+    문제) 만일 화살을 여러개 만들어야 한다면?
+     -->
+<script>   
+// var a1,a2,a3;
+// 위에 변수는 몇개 안될 떄 다수의 화살을 원할때 배열로 묶자.
+var arr = new Array();
+// 화살이라는 객체의 틀을 만들어 놓고 사용하자 = 클래스 
+// 자주 사용될 가능성이 높은 코드(변수,함수)를 또 하나의 단위로 묶어서
+// 이름을 붙여놓은 코드 단위를 가리켜 클래스라 하고,
+// 이 클래스를 사물 자체를 정의한 것이 아니라, 사물을 생성해 낼 수 있는 '틀(거푸집)'을 의미.
+
+class Arrow{
+    // 아래의 코드는 객체내에 작성한 것이므로, 즉 객체중심적 코드로 이해하고 접근해보자
+    constructor(x,y,velX){
+        // 자바스크립트에서는 객체가 보유한 변수(속성)를 반드시 constructor() 내에서 정의할 수 있다.
+        this.span;
+        this.x = x;
+        this.y = y;
+        this.velX = velX;
+        this.createArrow();
+        // 매개 변수가 없는 클래스는 모두 동일한 모습을 가지므로 차별화 된 모습을 갖고
+        // 태어나려면 생성자에 매개변수로 처리한다.
+    }
+
+    // 앞에 function이 붙으면 일반함수 없으면 메서드이다 -> 명칭이 바뀐다.
+    createArrow(){
+        // (1) span을 생성하여 화면에 부착
+        this.span = document.createElement("span");
+        this.span.innerText="→";
+        this.span.style.position="absolute";
+        this.span.style.left=this.x+"px";             // x값 변경이므로 변수로 설정
+        this.span.style.top=this.y+"px";             // 화살을 호출할 때 x,y가 고정되있으면 뭉쳐있다
+                                                                   // 그래서 변하게 하기 위해서는 매개변수 x,y를 줘서 변경해주자.
+        document.body.appendChild(this.span);
+    }
+
+    tick(){
+        // render() 에 있어야 하는 것을 tick()에 넣는다.
+        // 물리량 변화 즉, 사물의 상태 변경을 하는 함수에 넣어서 관리.        
+        this.x += this.velX;      // 각 화살이 다르게 움직이게 하고 싶다면? 속도 조절을 변수로 정해두자.
+    }
+
+    render(){
+        // (2) 화살을 움직이기(화면에 그래픽처리) = x축 값을 변경한다. 
+        this.span.style.left = this.x+"px";    
+    }
+};
+
+    // 끝없이 실행되는 게임 루프 영역 => 객체 화살과 관련이 없는 실행부
+    function gameLoop(){
+        console.log("gameLoop called..");
+        // 아래 함수도 호출 불가 -> Arrow 클래스 꺼기 때문에  -> 누구 꺼인지 명칭이 안되어 있음
+        // a1.tick();
+        // a1.render();
+        // a2.tick();
+        // a2.render();
+        // a3.tick();
+        // a3.render();
+        for(var i=0;i<arr.length;i++){
+            arr[i].tick();
+            arr[i].render();
+        }
+    }
+    
+    window.addEventListener("load",function(){
+        // createArrow();
+        // 위에 함수는 이제 Arrow 클래스 꺼다.
+        // ** 화살의 인스턴스 3개를 생성해보자
+        // a1 = new Arrow(0,50,5);  
+                                // Arrow 클래스 안에 Arrow()라는 함수가 없다. 그래서 화면에 안보임
+                               // 즉, 클래스명으로 된 함수를 가리켜 생성자 함수라 한다.
+                               // 따라서 Arrow() 란 constructor()를 호출 하는 것이다.(가르킴)
+                               // 생성자 함수는 즉, 클래스 안에 있는 함수를 호출해주는 것
+        // a2 = new Arrow(0,150,2);
+        // a3 = new Arrow(0,200,8);
+
+        // ** 다수의 화살 = arr.push(new Arrow());
+        for(var i=0;i<100;i++){
+            arr.push(new Arrow(0,i*3,i+1));
+        }       
+
+        setInterval("gameLoop()",10);   // fps 프레임 퍼 세컨즈        
+    });
+</script>
+</head>
+<body>
+    <!-- 객체의 개념 다시 잡기 -->
+</body>
+</html>
