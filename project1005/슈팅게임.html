@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    body{margin: 0px;}
+    #wrapper{
+        width: 100%;
+        height: 700px;
+        background-image: url(../images/shooting/bg.png);
+        overflow: hidden;
+        /* 부모 position을 지정안하니 overflow가 안먹히고 붕떠서 지정해줌 */
+        position: relative;
+    }
+</style>
+<script src="./Hero.js"></script>
+<script src="./Bullet.js"></script>
+<script src="./Enemy.js"></script>
+<script>
+    var wrapper;
+    var bgY = 0;
+    var hero;
+    var bullet;         // 변수 하나이기 떄문에 한개의 총알만 담을 수 있음을 알자..
+    var bulletArray = new Array();      // 내장 객체중 Array()객체는 배열을 제어할 수 있다.
+                                                      // (7-1) 배열을 사용한 이유는?
+                                                      // 마지막 총알에만 이동이 적용되서 총알을 발사하면은 총이 누적이 되서 남는다 
+                                                      // 그걸 받아주는 것
+    var bombArray = new Array();
+    var enemyArray = new Array();
+    var enemyImg = ["e1.png","e2.png","e3.png","e4.png","e5.png"];
+    
+    /*  (2) 우주 배경처리 */
+    function bgEffect(){
+        // y축의 음수방향으로 배경을 움직이자.
+        bgY++;          // 위로 올라간다.
+        wrapper.style.backgroundPosition="0px "+bgY+"px";
+    }
+    /*  (3) 사운드 효과 */
+    function bgSound(){
+        var bgAudio = document.createElement("audio");
+        bgAudio.src="../images/shooting/bgmm.mp3";
+        bgAudio.loop="yes";     // 끝없이 루프로 실행..
+        bgAudio.play();             // 사운드 실행
+    }
+
+    /* (4) 주인공 등장 Hero.js */
+    function createHero(){
+        hero = new Hero((screen.width/2)-40,550,80,65,0,0);
+    }
+
+    /* (6) 총알 생성 */
+    function createBullet(){
+        // src,주인공의x,주인공의y,width,height,velX(위로날아갈것=0),velY
+        // hero.width 의 절반에서 사용 하겟다 . 뭐를? 총알이 날아가는 위치를 정하기 위해
+        // -12 는 2분의 1로 하니 미세하게 더 옆으로 가기 때문에 숫자를 정해서 그냥 뻄.
+        bullet = new Bullet("../images/shooting/ball.png",hero.x+(hero.width/2)-12,hero.y,25,25,0,-10);
+        // (7-2) 총알을 날렸을 떄 총알이 누적되는데 그걸 배열에 추가하자.
+        
+        // (8) 총알발사에 음향주기 (무기 사운드처리)
+        var audio = document.createElement("audio");
+        audio.src="../images/shooting/fire.wav";
+        audio.play();
+
+        bulletArray.push(bullet);
+    }
+
+    /* (9) src에 이미지 넣고 velY로 속도를 늦추는 폭탄 만들기 */
+    function createBomb(){
+        var bomb = new Bullet("../images/shooting/missile.png",hero.x+(hero.width/2)-40,hero.y,80,120,0,-4);
+        bombArray.push(bomb);
+        // 마지막으로 음향효과
+        var audio = document.createElement("audio");
+        audio.src="../images/shooting/bomb.wav";
+        audio.play();
+    }
+
+    /* (10) 적군 생성하기 */
+    function createEnemy(){
+        for(var j=0;j<2;j++){            
+            for(var i=0;i<20;i++){
+                // x의 값 100에서 + 너비 75 에서 큰 90으로 간격을 둬야 떨어진다.
+                var enemy1 = new Enemy("../images/shooting/"+enemyImg[j],100+(i*90),50,75,65,0,0);
+                var enemy2 = new Enemy("../images/shooting/"+enemyImg[j],100+(i*90),50+(j*70),75,65,0,0);
+                var enemy3 = new Enemy("../images/shooting/"+enemyImg[j],100+(i*90),50+(j*70),75,65,0,0);
+                var enemy4 = new Enemy("../images/shooting/"+enemyImg[j],100+(i*90),50+(j*70),75,65,0,0);
+                var enemy5 = new Enemy("../images/shooting/"+enemyImg[j],100+(i*90),50+(j*70),75,65,0,0);
+
+                enemyArray.push(enemy1);
+                enemyArray.push(enemy2);
+                enemyArray.push(enemy3);
+                enemyArray.push(enemy4);                
+                enemyArray.push(enemy5);                
+            }
+        }
+    }
+
+    /* (1) 게임에서는 무조건 게임 루프가 존재해야 사물을 움직일 수 있다. */
+    function gameLoop(){
+        console.log("gameLoop() called..");
+        // 주인공이 보유하고 있는 tick, render을 호출
+        hero.tick();
+        hero.render();
+        // (7) 총알 생성 메서드 만든 후 ,
+        // 총알이 보유하고 있는 tick, render을 호출
+        // 근데 현재 총알이 아직 생성된 적이 없기 떄문에 bullet 변수에는 undefined 값이 들어있다.
+        // 따라서 존재하지 않는 객체의 메서드를 호출하게 되면 에러가 발생한다.
+
+        // 아래 if문은 총알을 발사해주는데 누적이 그대로 남게 되서 사용을 하면 안된다.
+        // if(bullet != undefined){// null이 아닐때면..
+        //     // 태어났을때만..
+        //     bullet.tick();
+        //     bullet.render();
+        // }
+
+        // (7-3) 총알 발사 ==== 반복문으로 배열을 누적
+        for(var i=0;i<bulletArray.length;i++){
+            bulletArray[i].tick();
+            bulletArray[i].render();
+        }
+        // (9-1)핵폭탄 날리기
+        for(var i=0;i<bombArray.length;i++){
+            bombArray[i].tick();
+            bombArray[i].render();
+        }
+        // (10-1) 적군이 다가오게 한다.
+        for(var i=0;i<enemyArray.length;i++){
+            enemyArray[i].tick();
+            enemyArray[i].render();
+        }
+
+        bgEffect();
+    }
+    window.addEventListener("load",function(){
+        wrapper = document.getElementById("wrapper");
+        // (5) 히어로 움직이기 = 게임화면인 div에 키보드 이벤트 구현
+        // 키보드를 누르면 움직이고, 떼면은 멈춘다.
+        document.body.addEventListener("keydown",function(e){
+            // alert();
+            var key = e.keyCode;
+            // alert(key);
+            switch(key){
+                case 37 : hero.velX= -5;break;         // velX -5, velY 0
+                case 39 : hero.velX= +5;break;
+                case 38 : hero.velY= -5;break;
+                case 40 : hero.velY= +5;break;
+                case 32 : createBullet();break;     // 총알발사
+                case 66 : createBomb();break;     // 폭탄발사
+            }
+        });
+        document.body.addEventListener("keyup",function(e){            
+            var key = e.keyCode;
+            switch(key){
+                case 37 : hero.velX= 0;break;         // velX -5, velY 0
+                case 39 : hero.velX= 0;break;
+                case 38 : hero.velY= 0;break;
+                case 40 : hero.velY= 0;break;
+            }
+        });
+        bgSound();      // 계속 소리가 나는게 아니기 때문에 gameLoop에 넣는것 아님.
+        createHero();
+        createEnemy();        
+        setInterval("gameLoop()",1);        
+    })
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>    
+</body>
+</html>
