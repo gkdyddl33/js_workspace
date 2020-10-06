@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #myMap{
+        width: 100%;
+        height: 800px;
+        background: yellow;
+        margin: auto;
+    }
+</style>
+<script>
+    var myMap;
+
+
+    function init(){
+        myMap = document.getElementById("myMap");
+        // (1) 맛집 위치
+        var pos = [
+            new google.maps.LatLng(37.499838, 127.035814), // 바스버거      
+            new google.maps.LatLng(37.503425, 127.026688), // 디저트카페           
+            new google.maps.LatLng(37.502052, 127.026963), // 빙수       
+            new google.maps.LatLng(37.506433, 127.026093), // 라멘           
+            new google.maps.LatLng(37.496811, 127.029221), // 레스토랑           
+        ];
+        // 옵션
+        var mapProp = {
+            center : pos[0],
+            zoom:17
+        };
+        var map = new google.maps.Map(myMap,mapProp);
+
+        // 마커생성
+        var marker = new google.maps.Marker({
+            position: pos[i],
+            animation:google.maps.Animation.BOUNCE,
+            icon:{
+                url:"../images/food/binso.webp",              
+                url:"../images/food/hambuger.webp",              
+                url:"../images/food/dessert.webp",              
+                url:"../images/food/raman.webp",              
+                url:"../images/food/rest.webp",
+                scaledSize:new google.maps.Size(45,45)              
+            }
+        });
+        marker.setMap(map);
+
+        // 마커에 클릭 이벤트 부여하기
+        google.maps.event.addListener(marker,"click",function(){
+            map.setZoom(20);
+        });
+        // 정보창 띄우기
+        var pop = new google.maps.InfoWindow({
+            content : "강남 디저트 집이예요~",
+            content : "강남 라면 집이예요~",
+            content : "강남 레스토랑 집이예요~",
+            content : "강남 빙수 집이예요~",
+            content : "강남 수제버거 집이예요~"
+        });
+        pop.open(map,marker);
+    }
+</script>
+</head>
+<body>
+    <div id="myMap"></div>
+</body>
+</html>
+<script src="https://maps.googleapis.com/maps/api/js?key=&callback=init"></script>

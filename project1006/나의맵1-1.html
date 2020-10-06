@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #myMap{
+        width: 1000px;
+        height: 800px;
+        background: yellow;
+        margin: auto;
+    }  
+</style>
+<script>
+    var myMap;
+
+    function init(){
+        myMap = document.getElementById("myMap");
+
+        var mapProp={
+            center : new google.maps.LatLng(37.500087,127.036459),
+            zoom:17
+        };
+        // 그려질 div와 옵션을 구글 맵에 올린다. = 객체 생성        
+        var map = new google.maps.Map(myMap,mapProp);
+
+        // 지정한 위치에 마커생성
+        var marker = new google.maps.Marker({
+            position : new google.maps.LatLng(37.500087,127.036459),
+            animation:google.maps.Animation.BOUNCE,
+            icon:{
+                url:"../images/shooting/e1.png",
+                scaledSize:new google.maps.Size(45,45)
+            }
+        });
+        // 마커 적용 맵 객체에
+        marker.setMap(map);
+
+        // 마커에 이벤트 부여
+        google.maps.event.addListner(marker,"click",function(){
+            map.setZoom(20);
+        });        
+
+        // 정보창 띄위기
+        var pop = new google.maps.InfoWindow({
+            content : "여기가 역삼 맛집이에요"
+        });
+        pop.open(map,marker);
+    }
+</script>
+</head>
+<body>
+    <div id="myMap">구글 지도 나올 예정</div>
+</body>
+</html>
+<script src="https://maps.googleapis.com/maps/api/js?key=&callback=init"></script>
