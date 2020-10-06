@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #myMap{
+        width: 1000px;
+        height: 800px;
+        background: yellow;
+        margin: auto;
+    }
+</style>
+<script>
+        // 그려질 div를 받을 것임
+    var myMap;
+
+    function init(){
+        myMap = document.getElementById("myMap");
+
+        // dummy 객체라고 생각하면 된다. 1회성사용 재사용 이 어려움
+        var mapProp = {
+            // center라는 변수에 위도와 경도를 나타내는 함수 = LatLng()
+            center:new google.maps.LatLng(37.500087, 127.036459),
+            // 화면의 크기 보여주는 것(카메라) : 20(크기조절)
+            zoom:17
+        };
+        // 구글 맵 객체 생성
+        var map = new google.maps.Map(myMap,mapProp);   
+        // (맵이 그려질 div, 옵션);
+    }
+</script>
+</head>
+<body>
+    <div id="myMap">구글 지도 나올 예정</div>
+</body>
+</html>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMzVPP4Oh7ZIslGOCb4i2ykLvgvQ8-HJA&callback=init"></script>
