@@ -1,0 +1,21 @@
+<script>
+    var a = "apple";        // new 생략 -> 문자열은 그냥 객체 문자열이 생략됫을 뿐
+
+    var s = new String("banana");
+    console.log(s);
+
+    var x = "korea";
+    console.log(x.length);
+    console.log(x.toUpperCase());
+            // 문자열은 문자들이 모여진 배열 - index가 지원
+    console.log(x.charAt(2));
+
+    var y = "banana";
+    console.log(y.indexOf("a"));
+    console.log(y.lastIndexOf("a"));
+
+    var file = "photo.jpg";
+    var arr = file.split(".");
+    console.log("파일명은 ",arr[0],"확장자는 ",arr[1]);
+    
+</script>

@@ -1,0 +1,28 @@
+<script>
+
+    var days = ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"];
+
+    function showTime(){
+        // 날짜 객체의 인스턴스 1개 생성
+        // 현재 날짜 정보를 보유하게 됨.
+        var d1 = new Date();
+        console.log(d1);
+
+        var yy = d1.getFullYear();
+        console.log("현재 연도는",yy);
+
+        var mm = d1.getMonth();
+        console.log(mm+1);
+
+        var dd = d1.getDate();
+        console.log(dd);
+
+        var day = d1.getDay(); 
+        console.log(days[day]);               // 해당 위치 문자가 아닌 위치로 나온다
+
+        // 현재 날짜를 조작할꺼야 즉, 수정
+        d1.setDate(d1.getDate()+5);     // 현재 날짜가 6일인데 11일로 수정
+        console.log("오늘은 ",d1.getDate(),"이며, 요일은 ", days[d1.getDay()]);                                                
+    }
+    showTime();
+</script>
