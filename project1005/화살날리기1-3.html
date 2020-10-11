@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    // 여러 화살을 배열로 묶자.    
+    var arr = new Array();
+
+    // 하나의 화살을 클래스로 틀 만들기
+    class Arrow{
+        constructor(x,y,velX){
+            this.span;
+            this.x=x;
+            this.y=y;
+            this.velX=velX;
+            this.createArrow();
+        }
+        createArrow(){
+            this.span=document.createElement("span");
+            this.span.innerText="→";
+            this.span.style.position="absolute";
+            this.span.style.left=this.x+"px";
+            this.span.style.top=this.y+"px";
+            document.body.appendChild(this.span);
+        }
+
+        tick(){
+            this.x += this.velX;
+        }
+        render(){
+            this.span.style.left=this.x+"px";
+        }
+    };
+    function gameLoop(){
+        for(var i=0;i<arr.length;i++){
+            arr[i].tick();
+            arr[i].render();
+        }
+    }
+    window.addEventListener("load",function(){
+        for(var i=0;i<100;i++){
+            arr.push(new Arrow(0,i*3,i+1));
+        }
+        setInterval("gameLoop()",10);
+    });    
+</script>
+</head>
+<body>
+    
+</body>
+</html>

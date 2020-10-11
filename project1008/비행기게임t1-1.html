@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+body{margin:0px;}
+#wrapper{
+    width:1280px;
+    height:640px;
+    margin: auto;
+    background-image:url(../images/shooting/game_bg.jpg);
+    position: relative;
+}    
+</style>
+<script src="./GameObject1-1.js"></script>
+<script src="./Hero1-1.js"></script>
+<script src="./Enemy1-1.js"></script>
+<script src="./Bullet1-1.js"></script>
+<script>
+    var wrapper;
+    var hero;
+    var bulletArray=new Array();
+
+    function createHero(){
+        hero = new Hero(wrapper,"../images/shooting/plane.png",100,65,0,0,0,0);
+    }
+    function createEnemy(){
+        new Enemy(wrapper,"../images/shooting/e1.png",100,65,900,200,0,0);
+        new Enemy(wrapper,"../images/shooting/e2.png",100,65,900,300,0,0);
+        new Enemy(wrapper,"../images/shooting/e3.png",100,65,900,400,0,0);
+        new Enemy(wrapper,"../images/shooting/e4.png",100,65,900,500,0,0);
+    }
+    function createBullet(){
+        var bullet = new Bullet(wrapper, "../images/shooting/ball.png", 25, 25, hero.x, hero.y,10, 0);
+        bulletArray.push(bullet);
+    }
+    function gameLoop(){
+        // 히어로 움직이기
+        hero.tick();
+        hero.render();
+        // 총알발사
+        for(var i=0;i<bulletArray.length;i++){
+            bulletArray[i].tick();
+            bulletArray[i].render();
+        }
+    }
+    function move(velX,velY){
+        hero.velX=velX;
+        hero.velY=velY;
+    }
+    function init(){
+        wrapper = document.getElementById("wrapper");
+        document.body.addEventListener("keydown",function(e){         
+            // alert(e.keyCode);
+            switch(e.keyCode){
+                case 32 : createBullet();break;
+                case 37:move(-5,0);break; //좌측 x감소
+                case 39:move(5,0);break; //우측 x증가
+                case 38:move(0,-5);break; //위 y감소 
+                case 40:move(0,5);break; //아래 y증가
+            }
+        });
+        document.body.addEventListener("keyup",function(e){         
+            // alert(e.keyCode);
+            switch(e.keyCode){                
+                case 37:move(0,0);break; //좌측 x감소
+                case 39:move(0,0);break; //우측 x증가
+                case 38:move(0,0);break; //위 y감소 
+                case 40:move(0,0);break; //아래 y증가
+            }
+        });
+    }
+    window.addEventListener("load",function(){
+        init();
+        createHero();
+        createEnemy();
+        setInterval("gameLoop()",10);
+    });
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

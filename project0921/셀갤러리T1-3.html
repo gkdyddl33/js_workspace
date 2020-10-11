@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 600px;
+        height: 600px;
+        background: darkcyan;
+        margin: auto;
+    }
+    #mask{
+        width: 200px;
+        height: 200px;
+        background: darkgray;
+        
+        position: relative;
+        left: 200px;
+        top: 200px;
+        
+        overflow: hidden;
+    }
+    #cell{
+        width: 600px;
+        height: 600px;
+        background: darkseagreen;
+    }
+</style>
+<script>
+    var cell;
+    var x=0;
+    var y=0;
+    //------------------
+    var n =1;
+    var targetX;
+    var targetY;
+    var a=0.1;
+
+    function init(){
+        // 이미지 셀 구하기
+        cell = document.getElementById("cell");
+        cell.style.position="absolute";
+        cell.style.left=x+"px";
+        cell.style.top=y+"px";
+
+        // 셀 생성 = 이미지 삽입
+        for(var j=1;j<=3;j++){
+            for(var i=1;i<=3;i++){
+                n++;
+                var img = document.createElement("img");
+                img.src="../images/travel/"+n+".jpg";
+                img.style.width=200+"px";
+                img.style.height=200+"px";
+                img.style.position="absolute";
+                img.style.left=(i-1)*200+"px";
+                img.style.top=(j-1)*200+"px";
+
+                cell.appendChild(img);
+            }            
+        }
+
+        document.body.addEventListener("keydown",function(){
+            var key = event.keyCode;
+            switch(key){
+                case 37 : x=x-200;break;
+                case 39 : x=x+200;break;
+                case 38 : y=y-200;break;
+                case 40 : y=y+200;break;
+            }
+            targetX=x;
+            targetY=y;
+        });
+    }
+    // 움직일려면? 좌표를 알아야함
+    function move(){
+        cell.style.left=parseFloat(cell.style.left)+a*(targetX-parseFloat(cell.style.left))+"px";
+        cell.style.top=parseFloat(cell.style.top)+a*(targetY-parseFloat(cell.style.top))+"px";
+    }
+    window.addEventListener("load",function(){
+        init();
+        setInterval("move()",25);
+    });
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="mask">
+            <div id="cell"></div>
+        </div>
+    </div>
+</body>
+</html>

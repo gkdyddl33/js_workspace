@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 700px;
+        height: 800px;
+        background-color: yellow;
+        margin: auto;
+    }
+    #head{
+        width: 100%;
+        height: 100px;
+        background: tan;
+        text-align: center;
+    }
+    #head span{
+        font-size: 50px;
+    }
+    #content{
+        width: 100%;
+        height: 700px;
+        background: cornflowerblue;
+    }
+</style>
+<script src="./Cell1-1.js"></script>
+<script src="../js/lib.js"></script>
+<script>
+    var head,content,info;
+    var days =["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+    function createDay(){
+        for(var i=0;i<days.length;i++){
+            new Cell(content,100,100,days[i]);
+        }
+    }
+    function createCell(){
+        for(var a=0;a<6;a++){
+            for(var i=0;i<7;i++){
+                new Cell(content,100,100,"txt");
+            }
+        }
+    }
+    // 자동으로 현재 날짜가 나오게 해주는 함수
+    function getCurrentDate(){
+        var d = new Date();
+        
+    }
+    function printDate(yy,mm){// 모든 함수에 넣을 것이므로 공통으로 사용!
+        // 변경될 년도,월 에 들어갈 변수 2개 생성
+        info.innerText=yy+"년 "+getZeroDate(mm)+"월";
+    }
+    function init(){
+        head = document.getElementById("head");
+        content = document.getElementById("content");
+        info = document.getElementById("info");
+    }
+    window.addEventListener("load",function(){
+        init();
+        createDay();
+        createCell();
+    });
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="head">
+            <span>◀</span>
+            <span id="info">2020년 10월</span>
+            <span>▶</span>
+        </div>
+        <div id="content"></div>
+    </div>
+</body>
+</html>

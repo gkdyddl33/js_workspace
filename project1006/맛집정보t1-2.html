@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    #myMap{
+        width: 100%;
+        height: 800px;
+        background: yellow;
+        margin: auto;
+    }
+</style>
+<script>
+    var myMap;
+    var storeArray=[
+        {
+            content:"바스버거",
+            pos:{
+                lati:37.499838,
+                longi:127.035814
+            },
+            url:"../images/food/hambuger.webp"
+        },{
+            content:"디저트카페",
+            pos:{
+                lati:37.503425, 
+                longi:127.026688
+            },
+            url:"../images/food/dessert.webp"
+        },{
+            content:"라면",
+            pos:{
+                lati:37.506433, 
+                longi:127.026093
+            },
+            url:"../images/food/raman.webp"
+        },{
+            content:"레스토랑",
+            pos:{
+                lati:37.496811, 
+                longi:127.029221
+            },
+            url:"../images/food/rest.webp"
+        },{
+            content:"빙수",
+            pos:{
+                lati:37.502052, 
+                longi:127.026963
+            },
+            url:"../images/food/binso.webp"
+        }
+    ]
+    function createMap(){
+        // 구글 맵 객체 생성
+        var map = new google.maps.Map(myMap,{
+            center : new google.maps.LatLng(37.499838,127.035814),
+            zoom:17
+        });
+
+        for(var i=0;i<storeArray.length;i++){
+            var store = storeArray[i];
+
+            var marker = new google.maps.Marker({
+                position:new google.maps.LatLng(store.pos.lati,store.pos.longi),
+                icon:{
+                    url:store.url,
+                    scaledSize:new google.maps.Size(45,45)
+                }
+            });
+            marker.setMap(map);
+
+            var popup = new google.maps.InfoWindow({
+                content:store.content
+            });
+            popup.open(map,marker);
+
+        }
+    }
+    function init(){
+        myMap = document.getElementById("myMap");
+        createMap();
+    }
+</script>
+</head>
+<body>
+    <div id="myMap"></div>
+</body>
+</html>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMzVPP4Oh7ZIslGOCb4i2ykLvgvQ8-HJA&callback=init"></script>

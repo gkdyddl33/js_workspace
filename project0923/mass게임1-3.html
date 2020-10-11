@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script>
+    var wrapper;
+    var cellWidth=30;
+    var cellHeight=30;
+    var row = 10;
+    var col = 10;
+    var cellArray=new Array(row*col);
+    var index = 0;
+
+    function createCell(){
+        var n =0;
+        for(var j=0;j<row;j++){
+            for(var i=0;i<col;i++){
+                var cell = document.createElement("div");
+                cell.style.width=cellWidth+"px";
+                cell.style.height=cellHeight+"px";
+                cell.style.border="1px solid red";
+                cell.style.boxSizing="border-box";
+                cell.style.background="seagreen";
+                cell.style.opacity=1;
+
+                cell.style.float="left";
+                wrapper.appendChild(cell);
+                cellArray[n]=cell;
+                n++;
+
+                cell.addEventListener("click",function(){
+                    this.style.opacity=0;
+                });
+            }
+        }
+    }
+    function createFrame(){
+        wrapper = document.getElementById("div");
+        wrapper.style.margin="auto";
+        wrapper.style.background="darkgray";
+        wrapper.style.width=(cellWidth*col)+"px";
+        wrapper.style.height=(cellHeight*row)+"px";
+        wrapper.style.overflow="hidden";
+
+        wrapper.style.backgroundImage="url(../images/travel/3.jpg";
+        wrapper.style.backgroundSize=parseInt(wrapper.style.width)+"px"+parseInt(wrapper.style.height)+"px";
+        document.body.appendChild(wrapper);
+    }
+    function setOpacity(){
+        cellArray[index].style.opacity=0;
+
+        // 배열 범위내에서 한정되게 해야 한다.
+        if(index<cellArray.length-1){
+            index++;
+        }
+    }
+    function createButton(){
+        var bt = document.createElement("button");
+        bt.innerText="해답보기";
+        document.body.appendChild(bt);
+
+        bt.addEventListener("click",function(){
+            setInterval("setOpacity()",1);
+        });
+    }
+
+    function init(){
+        createFrame();
+        createCell();
+        createButton();
+    }
+    window.addEventListener("load",function(){
+        init();
+    });
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

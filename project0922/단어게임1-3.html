@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+.wrapper{
+    width: 400px;
+    height: 650px;
+    background: chocolate;
+    margin: auto;
+}
+#question{
+    width: 100%;
+    height: 250px;
+    background-color: cornflowerblue;
+    font-size: 95px;
+    text-align: center;
+}
+.word-input{
+    width: 100%;
+    height: 100px;
+    background-color: rgb(252, 245, 156);
+}
+.word-input input{
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    font-size: 60px;
+    text-align: center;
+}
+#feedback{
+    width: 100%;
+    height: 200px;
+    font-size: 170px;
+    text-align: center;
+}
+#record{
+    width: 100%;
+    height: 100px;
+    background: cornsilk;
+    font-size: 80px;
+    text-align: center;
+}
+</style>
+<script>
+    var question;
+    var txt;
+    var feedback;
+    var record;
+    var score = 0;
+    var n = 0;
+
+    var word = new Array();
+    word[0] = "광화문";
+    word[1] = "지하철";
+    word[2] = "소나기";
+    word[3] = "블랙홀";
+    word[4] = "핵전쟁";
+    word[5] = "짜장면";
+    word[6] = "제주도";
+    word[7] = "코로나";
+    word[8] = "자습실";
+    word[9] = "카메라";
+
+    function init(){
+        question = document.getElementById("question");
+        txt = document.getElementById("txt");
+        feedback = document.getElementById("feedback");
+        score = document.getElementById("score");
+
+        printWord();
+        printScore();
+        txt.focus();
+
+        txt.addEventListener("keyup",function(e){
+            if(e.keyCode==13){
+                if(txt.value==question.innerText){
+                    feedback.innerText="O";
+                    score +=10;
+                    printScore();
+                }else{
+                    feedback.innerText="X";
+                    score -=10;
+                    printScore();
+                }
+                txt.value="";
+                n++;
+                if(n>=word.length){
+                    alert("게임종료");
+                    question.innerText="Game Over";
+                }else{
+                    printWord();
+                }
+            }
+        });
+    }
+    function printWord(){
+        question.innerText=word[n];
+    }
+    function printScore(){
+        record.innerText=score;
+    }
+    window.addEventListener("load",function(){
+        init();
+    });
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="question"></div>
+        <div class="word-input">
+            <input type="text" id="txt" placeholder="단어를 따라치세요.">
+        </div>
+        <div id="feedback">X</div>
+        <div id="record">점</div>
+    </div>
+</body>
+</html>

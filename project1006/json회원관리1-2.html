@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 700px;
+        height: 600px;
+        background: yellow;
+        margin: auto;
+        position: relative;
+        border: 2px solid red;
+    }
+    .regist-area{
+        width: 200px;
+        height: 100%;
+        background: #dfdfdf;
+        position: absolute;
+        left: 0px;
+    }
+    #result-area{
+        width: 500px;
+        height: 100%;
+        background: rgb(143, 143, 238);
+        position: absolute;
+        left: 200px;
+        overflow: scroll;
+    }
+    input[type='text']{
+        padding: 6px;
+        margin: 5px 5px;
+    }button{
+        margin: 0px 5px 0px 5px;
+        width: 80px;
+        padding: 6px;
+    }
+</style>
+<script>
+    var id,pass,n;
+
+    var memberArray = new Array();
+
+    function regist(){
+        var member={
+            uid:id.value,
+            uname:n.value,
+            upass:pass.value
+        };
+        memberArray.push(member);
+        printData();
+    }
+    function printData(){
+        var area = document.getElementById("result-area");
+
+        var str = "<table>";
+            str+="<tr>";
+                str +="<td>아이디</td>";
+                str +="<td>비밀번호</td>";
+                str +="<td>이름</td>";
+            str+="</tr>";
+        for(var i=0;i<memberArray.length;i++){
+            var member = memberArray[i];
+            str+="<tr>";
+                str +="<td>"+member.uid+"</td>";
+                str +="<td>"+member.upass+"</td>";
+                str +="<td>"+member.uname+"</td>";
+            str+="</tr>";  
+            }
+        str += "</table>";
+
+        area.innerHTML=str;
+    }
+    function init(){
+        id = document.getElementById("id");
+        pass = document.getElementById("pass");
+        n = document.getElementById("n");  
+    }
+    window.addEventListener("load",function(){
+        init();
+    });
+</script>
+</head>
+<body>
+   <!-- (1) 폼 생성하기 박스 와 텍스트박스와 버튼까지 완료 -->
+   <div class="wrapper">
+    <div class="regist-area">
+        <!-- (2) 새로고침 서버전송 방지를 안하면 버튼에 의해 무조건적인 전송방지
+            새로고침 때문에 페이지가 갱신 -->
+        <form onsubmit="event.preventDefault()">
+            <input type="text" id="id" placeholder="ID입력..">
+            <input type="text" id="pass" placeholder="Password입력..">
+            <input type="text" id="n" placeholder="Name입력..">
+
+            <!-- (2) 버튼 누르면 등록 지우기 만들어보기 -->
+            <button onclick="regist()">등록</button>
+            <button>지우기</button>
+        </form>
+    </div>
+    <div id="result-area">등록폼 결과표 나올 영역</div>
+</div>
+</body>
+</html>

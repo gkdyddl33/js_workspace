@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    .wrapper{
+        width: 1000px;
+        height: 800px;
+        background: yellow;
+        margin: auto;
+    }
+    #head{
+        width: 100%;
+        height: 100px;        
+        background: hotpink;
+        font-size: 50px;
+        font-weight: bold;
+        text-align: center;
+    }
+    #content{
+        width: 100%;
+        height: 600px;
+        background: dodgerblue;
+        overflow: hidden;
+    }
+    #photo{
+        width: 50%;
+        height: 100%;
+        background: darkseagreen;
+        float: left;
+    }
+    #desc{
+        width: 50%;
+        height: 100%;
+        background: khaki;
+        float: left;
+        font-size: 25px;
+    }
+    #desc li{
+        margin-bottom: 15px;
+    }
+    #thumb{
+        width: 100%;
+        height: 100px;
+        background: darksalmon;
+        position: relative;
+        overflow: hidden;
+    }
+</style>
+<script src="./data.json"></script>
+<script src="./Thumbnail1-2.js"></script>
+<script src="./Pointer1-2.js"></script>
+<script>
+    var head,photo,desc,thumb;
+    var thumbArray=new Array();
+    var pointer;
+
+    function createThumb(){
+        for(var i=0;i<movie.marvel.length;i++){
+            var json = movie.marvel[i];
+            var obj = new Thumbnail(thumb,100,90,5,json.url,i*100);
+            thumbArray.push(obj);
+        }
+    }
+    function createPointer(){
+        pointer = new Pointer(thumb,100,90,5,0,0,0);
+    }
+    function getDetail(index){
+        var json = movie.marvel[index];
+        photo.innerHTML="<img src=\""+json.url+"\" width=\"100%\"height=\"100%\"/>";
+        head.innerHTML=json.title;
+
+        var tag="<ul>";
+            tag += "<li>장르 : "+json.category_name+"</li>";
+            tag += "<li>개봉일 : "+json.release_date+"</li>";
+            tag += "<li>예산 : "+json.budget+"</li>";
+            tag += "<li>수입 : "+json.gross+"</li>";
+            tag += "<li>상영시간 : "+json.running_time+"</li>";
+        tag +="</ul>";
+        desc.innerHTML=tag;
+    }
+    function gameLoop(){
+        //포인터를 움직이게 border가 내가 누르는 이미지에 가게끔
+        pointer.tick();
+        pointer.render();
+    }
+    function init(){
+        head = document.getElementById("head");
+        photo = document.getElementById("photo");
+        desc = document.getElementById("desc");
+        thumb = document.getElementById("thumb");
+    }
+    window.addEventListener("load",function(){
+        init();
+        createThumb();
+        createPointer();
+        document.body.addEventListener("keydown",function(e){
+            // var key = e.keyCode;
+            // switch(key){
+            //     case 37 : 
+            // }
+            alert("나 눌렀어?");
+        });
+        setInterval("gameLoop()",10);
+    })
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="head"></div>
+        <div id="content">
+            <div id="photo"></div>
+            <div id="desc"></div>            
+        </div>
+        <div id="thumb"></div>
+    </div>
+</body>
+</html>

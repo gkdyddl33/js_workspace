@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+    body{margin: 0px;}
+    #wrapper{
+        width: 100%;
+        height: 700px;
+        background-image: url(../images/shooting/bg.png);
+        overflow: hidden;
+        /* 부모 position을 지정안하니 overflow가 안먹히고 붕떠서 지정해줌 */
+        position: relative;
+    }
+</style>
+<script src="./Hero1-2.js"></script>
+<script src="./Bullet1-2.js"></script>
+<script src="./Enemy1-2.js"></script>
+<script src="../js/lib.js"></script>
+<script>
+    var bgY=0;
+    var hero;
+    var bullet;
+
+    var bulletArray = new Array();
+    var bombArray = new Array();
+    var enemyArray = new Array();
+    enemyImg=["e1.png","e2.png","e3.png","e4.png","e5.png"];
+
+    function bgEffect(){
+        bgY++;
+        wrapper.style.backgroundPosition="0px "+bgY+"px";
+    }
+    function bgSound(){
+        var bgAudio = document.createElement("audio");
+        bgAudio.src="../images/shooting/bgmm.mp3";
+        bgAudio.loop="yes";
+        bgAudio.play();
+    }
+    function createHero(){
+        hero = new Hero((screen.width/2)-40,550,80,65,0,0);     
+
+    }
+    function createEnemy(){
+
+        for(var j=0;j<2;j++){
+            for(var i=0;i<20;i++){
+                var enemy1 = new Enemy("../images/shooting/"+enemyImg[j],100+(i*90),50,75,65,0,0);
+                var enemy2 = new Enemy("../images/shooting/"+enemyImg[j],100+(i*90),50+(j*70),75,65,0,0);
+                var enemy3 = new Enemy("../images/shooting/"+enemyImg[j],100+(i*90),50+(j*70),75,65,0,0);
+                var enemy4 = new Enemy("../images/shooting/"+enemyImg[j],100+(i*90),50+(j*70),75,65,0,0);
+                var enemy5 = new Enemy("../images/shooting/"+enemyImg[j],100+(i*90),50+(j*70),75,65,0,0);
+
+                enemyArray.push(enemy1);
+                enemyArray.push(enemy2);
+                enemyArray.push(enemy3);
+                enemyArray.push(enemy4);
+                enemyArray.push(enemy5);
+            }
+        }
+    }
+
+    function createBullet(){
+        bullet=new Bullet("../images/shooting/ball.png",hero.x+(hero.width/2)-12,hero.y,25,25,0,-10);
+        var audio = document.createElement("audio");
+        audio.src="../images/shooting/fire.wav";
+        audio.play();
+        bulletArray.push(bullet);
+    }
+    function createBomb(){
+        var bomb=new Bullet("../images/shooting/missile.png",hero.x+(hero.width/2)-12,hero.y,25,25,0,-10);
+        var audio = document.createElement("audio");
+        audio.src="../images/shooting/bomb.wav";
+        audio.play();
+        bombArray.push(bomb);
+    }
+    function gameLoop(){
+        hero.tick();
+        hero.render();
+
+        for(var i=0;i<bulletArray.length;i++){
+            bulletArray[i].tick();
+            bulletArray[i].render();
+        }
+        for(var i=0;i<bombArray.length;i++){
+            bombArray[i].tick();
+            bombArray[i].render();
+        }
+        for(var i=0;i<enemyArray.length;i++){
+            enemyArray[i].tick();
+            enemyArray[i].render();
+        }
+        bgEffect();
+    }
+    window.addEventListener("load",function(){
+        wrapper = document.getElementById("wrapper");
+
+        // 히어로 만듬? 그럼 움직이는 걸 먼저 해봐야지
+        document.body.addEventListener("keydown",function(e){
+            var key = e.keyCode;
+            switch(key){
+                case 37 : hero.velX=-5;break;
+                case 39 : hero.velX=+5;break;
+                case 38 : hero.velY=-5;break;
+                case 40 : hero.velY=+5;break;    
+                case 32 : createBullet();break;    
+                case 66 : createBomb();break;    
+
+            }
+        });
+        document.body.addEventListener("keyup",function(e){
+            var key = e.keyCode;
+            switch(key){
+                case 37 : hero.velX=0;break;
+                case 39 : hero.velX=0;break;
+                case 38 : hero.velY=0;break;
+                case 40 : hero.velY=0;break;                
+            }
+        });
+        bgSound();
+        createHero();
+        createEnemy();
+        setInterval("gameLoop()",1);
+    });
+</script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>
